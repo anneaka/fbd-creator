@@ -15,7 +15,7 @@ public class TeamCalculator {
 
     // Student 2
     public static int subtract(int a, int b) {
-        return 0;
+        return 2;
     }
 
     // Student 3
