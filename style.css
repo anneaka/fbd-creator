@@ -1,3 +1,68 @@
+:root {
+    --white: white;
+    --black: black;
+    --blue1: #2878b5;
+    --blue2: #72b7e5;
+    --blueDark: #142b45;
+    --blueLight: #e8f1f8;
+}
+
+
+
 html {
-    background: white;
+    #background-color: var(--blueLight);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'Poppins';
+
+
+}
+
+.header {
+    width: 100%;
+    margin: 0px;
+    padding: 4px;
+    background-color: var(--blue1);
+    color: white;
+    text-decoration: bold;
+}
+
+.section {
+    
+    margin: auto;
+    
+    background-color: white;
+    width: max(50%, 580px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section .section {
+    align-items: flex-start; 
+    flex-direction: column; 
+    gap: 5px;
+    max-width: min(50%, 300px);
+    
+}
+
+.text-container {
+    padding: 5px;
+    text-align: left;
+    margin: auto;
+    width: 80%;
+    
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    margin: 0;
+}
+
+button {
+    border: 0;
+    background-color: var(--blue1);
+    padding: 10px;
 }
