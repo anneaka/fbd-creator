@@ -10,7 +10,7 @@
 
 
 html {
-    #background-color: var(--blueLight);
+    
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'Poppins';
 
 
@@ -59,10 +59,73 @@ html {
 
 .img {
     margin: 0;
+    width: 100%;
 }
 
 button {
     border: 0;
     background-color: var(--blue1);
     padding: 10px;
+    border-radius: 30px;
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'Poppins';
+
 }
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    font-size: 15px;
+}
+
+.header ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    text-align: right;
+    justify-content: right;
+    margin-right: 50px;
+    text-decoration: none;
+}
+
+
+.header ul li a {
+    text-decoration: none;
+    margin: 10px;
+    color: white;
+}
+
+.header ul li a:hover {
+    text-decoration: underline;
+}
+
+.inputs {
+    width: 100%;
+    
+}
+
+.inputs ul {
+    list-style: none;
+    padding-left: 0;
+    
+}
+
+.inputs ul li {
+    margin-bottom: 20px;
+    display: flex;
+    
+}
+
+.inputs ul li .text{
+    width: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: none;
+}
+.inputs ul li .hidelabel{
+    display: none;
+}
+
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Sketch</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+   <!-- <script src="libraries/p5.sound.min.js"></script>
+
+   -->
+  </head>
+
+  <body>
+
+    <div class="header">
+      
+        <ul>
+          <li style="margin-right: auto">Website name</li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="fbd.html">Diagram Maker</a></li>
+        </ul>
+    </div>
+    
+    <div class="section " style="justify-content: center;">
+        <div class="diagram">
+            <img src="images/picplaceholder.png" style=" float: right; max-width: min(100%, 500px);">
+        </div>
+        <div class="inputs">
+            <ul>
+                <li>
+                    <input type="checkbox" id="checkA" onclick="showTextbox('A')">
+                    <label>Applied Force </label>
+                    <input type="text" class="text" id="textA">
+                    <label id="labelA" class="hidelabel">N</label >
+                </li>
+                <li>
+                    <input type="checkbox" id="checkG" onclick="showTextbox('G')">
+                    <label>Gravitational Force </label>
+                    <input type="text" class="text" id="textG">
+                    <label id="labelG" class="hidelabel">N</label >
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <script>
+            function showTextbox(id){
+                const checkbox = document.getElementById("check" + id);
+                const textbox = document.getElementById("text" + id);
+                const label = document.getElementById("label" + id);
+                if (checkbox.checked){
+                    textbox.style.display = "flex";
+                    label.style.display = "flex";
+                }
+                else {
+                    textbox.style.display = "none";
+                    label.style.display = "none";
+                    //textbox.value = "";
+
+                }
+                
+            }
+    </script>
+
+  </body>
+</html>
