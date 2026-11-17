@@ -91,10 +91,12 @@ button:hover {
 }
 
 
+
 .header ul li a {
     text-decoration: none;
     margin: 10px;
     color: white;
+    
 }
 
 .header ul li a:hover {
@@ -103,6 +105,7 @@ button:hover {
 
 .inputs {
     width: 100%;
+    flex: 1;
     
 }
 
@@ -115,8 +118,11 @@ button:hover {
 .inputs ul li {
     margin-bottom: 20px;
     display: flex;
-    
+    height: 30px;
+    background-color: rgb(255, 242, 242);
+    align-items: center;
 }
+
 
 .inputs ul li .text{
     width: 50px;
@@ -128,4 +134,17 @@ button:hover {
     display: none;
 }
 
+.diagram {
+    justify-content: center; 
+    float: right; 
+    max-width: 500px; 
+    min-width: 300px;
+    background-color: rgb(255, 203, 203); 
+    flex: 1;
+    aspect-ratio: 1/1;
+}
 
+
+iframe {
+    border: none;
+}
