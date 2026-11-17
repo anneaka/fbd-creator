@@ -34,14 +34,26 @@
                 <li>
                     <input type="checkbox" id="checkA" onclick="showTextbox('A')">
                     <label>Applied Force </label>
-                    <input type="text" class="text" id="textA">
+                    <input type="number" class="number" id="textA" min="0" max="1000" step="any">
                     <label id="labelA" class="hidelabel">N</label >
                 </li>
                 <li>
-                    <input type="checkbox" id="checkG" onclick="showTextbox('G')">
+                    <input type="checkbox" id="checkG" checked="true" disabled="disabled" readonly="readonly">
                     <label>Gravitational Force </label>
-                    <input type="text" class="text" id="textG">
-                    <label id="labelG" class="hidelabel">N</label >
+                    <input type="number" class="number" id="textG" style="display: flex" min="0" max="1000" step="any" >
+                    <label id="labelG" >N</label >
+                </li>
+                <li>
+                    <input type="checkbox" id="checkN" onclick="showTextbox('N')">
+                    <label>Normal Force </label>
+                    <input type="number" class="number" id="textN" min="0" max="1000" step="any">
+                    <label id="labelN" class="hidelabel">N</label >
+                </li>
+                <li>
+                    <input type="checkbox" id="checkF" onclick="showTextbox('F')">
+                    <label>Friction Force </label>
+                    <input type="number" class="number" id="textF" min="0" max="1000" step="any">
+                    <label id="labelF" class="hidelabel">N</label >
                 </li>
             </ul>
 
@@ -71,8 +83,10 @@
 
             document.getElementById('textA').addEventListener("input", run );
             document.getElementById('textG').addEventListener('input', run );
+            document.getElementById('textN').addEventListener("input", run );
+            document.getElementById('textF').addEventListener('input', run );
             function run(){
-                document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value);
+                document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
             }
             
     </script>
