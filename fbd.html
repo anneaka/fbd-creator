@@ -27,37 +27,37 @@
     
     <div class="section " >
         <div class="diagram" >
-            <iframe id="iframe" src="diagram.html" style="width: 100%; height: 100%;"></iframe>
+            <iframe id="iframe" src="diagram.html" style="width: 100%; height: 100%; " scrolling="no"></iframe>
         </div>
         <div class="inputs">
             <ul>
                 <li>
-                    <input type="checkbox" id="checkA" onclick="showTextbox('A')">
-                    <label>Applied Force </label>
+                    <input type="checkbox" class="check" id="checkA" onclick="showTextbox('A')">
+                    <label>Applied Force</label>
                     <input type="number" class="number" id="textA" min="0" max="1000" step="any">
                     <label id="labelA" class="hidelabel">N</label >
                 </li>
                 <li>
-                    <input type="checkbox" id="checkG" checked="true" disabled="disabled" readonly="readonly">
-                    <label>Gravitational Force </label>
+                    <input type="checkbox" class="check" id="checkG" checked="true" disabled="disabled" readonly="readonly">
+                    <label>Gravitational Force</label>
                     <input type="number" class="number" id="textG" style="display: flex" min="0" max="1000" step="any" >
                     <label id="labelG" >N</label >
                 </li>
                 <li>
-                    <input type="checkbox" id="checkN" onclick="showTextbox('N')">
-                    <label>Normal Force </label>
+                    <input type="checkbox" class="check" id="checkN" onclick="showTextbox('N')">
+                    <label>Normal Force</label>
                     <input type="number" class="number" id="textN" min="0" max="1000" step="any">
                     <label id="labelN" class="hidelabel">N</label >
                 </li>
                 <li>
-                    <input type="checkbox" id="checkF" onclick="showTextbox('F')">
-                    <label>Friction Force </label>
+                    <input type="checkbox" class="check" id="checkF" onclick="showTextbox('F')">
+                    <label>Friction Force</label>
                     <input type="number" class="number" id="textF" min="0" max="1000" step="any">
                     <label id="labelF" class="hidelabel">N</label >
                 </li>
             </ul>
 
-            <button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button>
+            <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
         </div>
     </div>
 

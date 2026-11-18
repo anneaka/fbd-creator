@@ -1,15 +1,30 @@
+let myWidth = 300;
+let myHeight = 300;
+
+
 function setup() {
 
-                myWidth = 300;
-                myHeight = 300
+                myWidth = windowWidth;
+                myHeight = windowWidth;
                 createCanvas(myWidth, myHeight);
                 background(205);
                 const forces=[0, 0];
             }
 
+            function windowResized() {
+                    myWidth=windowWidth;
+
+                    myHeight=windowWidth;
+
+                
+                    resizeCanvas(myWidth, myHeight);
+                }
+
+
             function draw() {
+                scale(myWidth/300);
                 //circle(mouseX, mouseY, 20);
-                //drawLine(8);
+                //drawLine(88, 88, 0, 0);
             }
 
             function getForces(A, G, N, F) {
@@ -27,7 +42,7 @@ function setup() {
                 N=Number(N);
                 F=Number(F);
                 console.log(A);
-                rect(0, 0, myWidth, myHeight);
+                rect(-1, -1, myWidth, myHeight);
                 line(myWidth/2, myHeight/2, myWidth/2+A, myHeight/2)
                 line(myWidth/2, myHeight/2, myWidth/2, myHeight/2+G)
                 line(myWidth/2, myHeight/2, myWidth/2, myHeight/2-N)
