@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 
-    <title>Sketch</title>
+    <title>Diagram Maker</title>
 
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
@@ -14,7 +14,7 @@
    -->
   </head>
 
-  <body>
+  <body onresize="run()">
 
     <div class="header">
       
@@ -27,7 +27,7 @@
     
     <div class="section " >
         <div class="diagram" >
-            <iframe id="iframe" src="diagram.html" style="width: 100%; height: 100%; " scrolling="no"></iframe>
+            <iframe id="iframe" src="diagram.html"></iframe>
         </div>
         <div class="inputs">
             <ul>
@@ -86,7 +86,7 @@
             document.getElementById('textN').addEventListener("input", run );
             document.getElementById('textF').addEventListener('input', run );
             function run(){
-                document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
+                document.getElementById('iframe').contentWindow.getForces(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
             }
             
     </script>
