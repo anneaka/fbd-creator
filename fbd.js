@@ -1,5 +1,5 @@
-let myWidth=400;
-let myHeight=400;
+let myWidth=500;
+let myHeight=500;
 
 let centerX = myWidth/2;
 let centerY = myHeight/2;
@@ -7,18 +7,12 @@ const forces=[0, 0, 0, 0];
 
 function setup() {
         
-    if (windowWidth/400 < (windowHeight)/400){
-        myWidth=windowWidth;
-        myHeight=400*windowWidth/400;
-    }
-    else {
-        myWidth=400*(windowHeight)/400;
-        myHeight=windowHeight;
-    }
+    myWidth=windowWidth;
+    myHeight=windowWidth;
     createCanvas(myWidth, myHeight);
 
 
-    background(205);
+    background(255);
     drawBorder();
     
 }
@@ -27,33 +21,38 @@ function setup() {
 
 function windowResized() {
             
-    if (windowWidth/400 < (windowHeight)/400){
+        
         myWidth=windowWidth;
-        myHeight=400*windowWidth/400;
+        myHeight=windowWidth;
+        
+        createCanvas(myWidth, myHeight);
+        drawBorder();
+    console.log("a");
     }
-    else {
-        myWidth=400*(windowHeight)/400;
-        myHeight=windowHeight;
-    }
-        resizeCanvas(myWidth, myHeight);
-}
+
 
 function draw() {
-    scale(myWidth/400);
+    //resizeCanvas(myWidth, myHeight);
+    scale(myWidth/500);
     centerX = myWidth/2;
     centerY = myHeight/2;
     
-    //circle(mouseX, mouseY, 20);
-    //drawLine(88, 88, 0, 0);
 }
 
 function drawBorder() {
     stroke=0;
     size = 3;
-    background = 200;
+    background = 255;
     size2 = 10;
-    color = 255;
+    
+    //line(0, 0, myWidth, myHeight);
+    fill(255);
     rect(size, size, myWidth-size, myHeight-size);
+//line(0, 0, myWidth, myHeight);
+  //line(myWidth, 0, 0, myHeight);
+   
+    fill(0);
+    circle(myWidth/2, myWidth/2, 3);
 }
 
 function getForces(A, G, N, F) {
@@ -66,23 +65,41 @@ function getForces(A, G, N, F) {
 }
 
 function drawLines(forces) {
-    A=forces[0];
-    G=forces[1];
-    N=forces[2];
-    F=forces[3];
+windowResized()
+
+    fill(255);
+    rect(-50, -50, myWidth+50, myHeight+50)
+    
+    A=constrain(forces[0], 0, myWidth/2);
+    G=constrain(Number(forces[1]), 0, myWidth/2);
+    N=constrain(forces[2], 0, myWidth/2);
+    F=constrain(forces[3], 0, myWidth/2);
     console.log(A);
     drawBorder();
+    
     //line(centerX, centerY, centerX+A, centerY)
     angleLine(A, 30);
     line(centerX, centerY, centerX, centerY+G)
     line(centerX, centerY, centerX, centerY-N)
     line(centerX, centerY, centerX-F, centerY)
-
+    /*
     rect(-size2, -size2, myWidth+size2, 0)
     rect(-size2, -size2, 0, myHeight+size2)
     rect(myWidth, myHeight, myWidth+size2, myHeight-size2)
     rect(-size2, myHeight, myWidth+size2, myHeight+size2)
-    
+    */
+    fill(0);
+    circle(myWidth/2, myWidth/2, 3);
+
+}
+
+function constrain(length, min, max) {
+    if (length<min){
+        length=min;
+    }
+    else if (length>max) {
+        length=max;
+    }
 }
 
 function angleLine(l, d) {
@@ -91,7 +108,11 @@ function angleLine(l, d) {
     let y = l* Math.sin(r);
 
     line(centerX, centerY, centerX+x, centerY-y)
+    noFill();
+    triangle(centerX+x, centerY-y, centerX+(l-15)*Math.cos((r)-(r/l)), centerY-(l-15)*Math.sin(r-(r/l)), centerX+(l-15)*Math.cos(r+0.1), centerY-(l-15)*Math.sin(r+0.1));
 }
+
+
 
 /*
 function drawLine(A, G, N, F) {

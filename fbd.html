@@ -79,15 +79,24 @@
                 }
                 
             }
-
+            const iframe = document.getElementById('iframe');
 
             document.getElementById('textA').addEventListener("input", run );
             document.getElementById('textG').addEventListener('input', run );
             document.getElementById('textN').addEventListener("input", run );
             document.getElementById('textF').addEventListener('input', run );
             function run(){
-                document.getElementById('iframe').contentWindow.getForces(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
+                iframe.contentWindow.getForces(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
+                
             }
+
+            window.addEventListener("resize", resize);
+            function resize() {
+                iframe.contentWindow.windowResized();
+                
+            }
+
+
             
     </script>
 
