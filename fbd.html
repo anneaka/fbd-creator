@@ -57,6 +57,19 @@
                 </li>
             </ul>
 
+            <script src="force-input.js"></script>
+            <script>
+                
+                setInterval(function () {
+                    valueCheck("A");
+                    valueCheck("G");
+                    valueCheck("N");
+                    valueCheck("F");
+                    run();
+                    }, 10);
+
+            </script>
+
             <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
         </div>
     </div>
@@ -79,7 +92,7 @@
                 }
                 
             }
-            const iframe = document.getElementById('iframe');
+
 
             document.getElementById('textA').addEventListener("input", run );
             document.getElementById('textG').addEventListener('input', run );
