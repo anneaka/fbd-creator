@@ -59,11 +59,13 @@
 
             <script src="force-input.js"></script>
             <script>
+                
                 setInterval(function () {
                     valueCheck("A");
                     valueCheck("G");
                     valueCheck("N");
                     valueCheck("F");
+                    run();
                     }, 10);
 
             </script>
@@ -91,11 +93,6 @@
                 
             }
 
-
-            document.getElementById('textA').addEventListener("input", run );
-            document.getElementById('textG').addEventListener('input', run );
-            document.getElementById('textN').addEventListener("input", run );
-            document.getElementById('textF').addEventListener('input', run );
             function run(){
                 document.getElementById('iframe').contentWindow.getForces(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
             }

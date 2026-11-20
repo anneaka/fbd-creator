@@ -1,9 +1,6 @@
 const maxValue = 100;
 const forcesList = ["A", "G", "N", "F"];
 
-function helpme() {
-    document.getElementById("vcheck").style.color = "red";
-}
 function valueCheck(id) {
         
         if (document.getElementById("text"+id).value < 0 || document.getElementById("text"+id).value > maxValue) {
