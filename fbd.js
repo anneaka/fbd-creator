@@ -55,13 +55,22 @@ function drawBorder() {
     circle(myWidth/2, myWidth/2, 3);
 }
 
-function getForces(A, G, N, F) {
-    forces[0] = A;
-    forces[1] = G;
-    forces[2] = N;
-    forces[3] = F;
+function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
+    forces[0] = [constrain(lengthA, 0, myWidth/2), angleA];
+    forces[1] = [constrain(lengthG, 0, myWidth/2), angleG];
+    forces[2] = [constrain(lengthN, 0, myWidth/2), angleN];
+    forces[3] = [constrain(lengthF, 0, myWidth/2), angleF];
 
     drawLines(forces);
+}
+
+function findMax(forces) {
+    let max = forces[0];
+    for (i=1; i<forces.length; i++) {
+        if (forces[i]>max) {
+            max = forces[i];
+        }
+    }
 }
 
 function drawLines(forces) {
@@ -70,18 +79,17 @@ windowResized()
     fill(255);
     rect(-50, -50, myWidth+50, myHeight+50)
     
-    A=constrain(forces[0], 0, myWidth/2);
-    G=constrain(Number(forces[1]), 0, myWidth/2);
-    N=constrain(forces[2], 0, myWidth/2);
-    F=constrain(forces[3], 0, myWidth/2);
-    console.log(A);
+    //console.log(A);
     drawBorder();
     
     //line(centerX, centerY, centerX+A, centerY)
-    angleLine(A, 30);
-    line(centerX, centerY, centerX, centerY+G)
-    line(centerX, centerY, centerX, centerY-N)
-    line(centerX, centerY, centerX-F, centerY)
+    angleLine(forces[0][0], forces[0][1], "A");
+    angleLine(forces[1][0], forces[1][1]-90, "g");
+    angleLine(forces[2][0], -1*forces[2][1]+90, "N");
+    angleLine(forces[3][0], -1*forces[3][1]-180, "f");
+    //line(centerX, centerY, centerX, centerY+lengthG)
+    //line(centerX, centerY, centerX, centerY-lengthN)
+    //line(centerX, centerY, centerX-lengthF, centerY)
     /*
     rect(-size2, -size2, myWidth+size2, 0)
     rect(-size2, -size2, 0, myHeight+size2)
@@ -90,6 +98,13 @@ windowResized()
     */
     fill(0);
     circle(myWidth/2, myWidth/2, 3);
+
+    text("+", 15, 15);
+    text("+", 55, 50);
+    line(20, 55, 20, 20);
+    line(15, 50, 50, 50);
+    triangle(20, 20, 22, 25, 18, 25);
+    triangle(50, 50, 45, 48, 45, 52);
 
 }
 
@@ -102,14 +117,33 @@ function constrain(length, min, max) {
     }
 }
 
-function angleLine(l, d) {
+function angleLine(l, d, str) {
     let r = Math.PI * d/180
     let x = l* Math.cos(r);
     let y = l* Math.sin(r);
 
     line(centerX, centerY, centerX+x, centerY-y)
     noFill();
-    triangle(centerX+x, centerY-y, centerX+(l-15)*Math.cos((r)-(r/l)), centerY-(l-15)*Math.sin(r-(r/l)), centerX+(l-15)*Math.cos(r+0.1), centerY-(l-15)*Math.sin(r+0.1));
+    let tipX = centerX+x;
+    let tipY = centerY-y;
+    let tipSize = 10;
+    let angle = 0.5;
+    fill(0);
+    if (l>50){
+        triangle(tipX, tipY, tipX-tipSize*(Math.cos(r-angle)), tipY+tipSize*(Math.sin(r-angle)), tipX-tipSize*(Math.cos(r+angle)), tipY+tipSize*(Math.sin(r+angle)));
+
+    }
+    else {
+        size = l/50;
+        triangle(tipX, tipY, tipX-(tipSize*(Math.cos(r-angle)))*size, tipY+(tipSize*(Math.sin(r-angle)))*size, tipX-(tipSize*(Math.cos(r+angle)))*size, tipY+(tipSize*(Math.sin(r+angle)))*size);
+
+    }
+
+    if (l!= 0) {
+text('F'+str, centerX+(l+15)* Math.cos(r)-5, centerY-+(l+15)* Math.sin(r)+5);
+    
+    }
+    
 }
 
 

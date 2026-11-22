@@ -32,28 +32,36 @@
         <div class="inputs">
             <ul>
                 <li>
-                    <input type="checkbox" class="check" id="checkA" onclick="showTextbox('A')">
+                    <input type="checkbox" class="check" id="checkA" checked="true" onclick="showTextbox('A')">
                     <label>Applied Force</label>
                     <input type="number" class="number" id="textA" min="0" max="1000" step="any">
                     <label id="labelA" class="hidelabel">N</label >
+                    <input type="number" class="number" id="angleA" min="-360" max="360" step="any">
+                    <label id="label2A" class="hidelabel">θ</label >
                 </li>
                 <li>
                     <input type="checkbox" class="check" id="checkG" checked="true" disabled="disabled" readonly="readonly">
                     <label>Gravitational Force</label>
                     <input type="number" class="number" id="textG" style="display: flex" min="0" max="1000" step="any" >
                     <label id="labelG" >N</label >
+                    <input type="number" class="number" id="angleG" min="-360" max="360" step="any">
+                    <label id="label2G" class="hidelabel">θ</label >
                 </li>
                 <li>
-                    <input type="checkbox" class="check" id="checkN" onclick="showTextbox('N')">
+                    <input type="checkbox" class="check" id="checkN" checked="true" onclick="showTextbox('N')">
                     <label>Normal Force</label>
                     <input type="number" class="number" id="textN" min="0" max="1000" step="any">
                     <label id="labelN" class="hidelabel">N</label >
+                    <input type="number" class="number" id="angleN" min="-360" max="360" step="any">
+                    <label id="label2N" class="hidelabel">θ</label >
                 </li>
                 <li>
-                    <input type="checkbox" class="check" id="checkF" onclick="showTextbox('F')">
+                    <input type="checkbox" class="check" id="checkF" checked="true" onclick="showTextbox('F')">
                     <label>Friction Force</label>
                     <input type="number" class="number" id="textF" min="0" max="1000" step="any">
                     <label id="labelF" class="hidelabel">N</label >
+                    <input type="number" class="number" id="angleF" min="-360" max="360" step="any">
+                    <label id="label2F" class="hidelabel">θ</label >
                 </li>
             </ul>
 
@@ -80,13 +88,19 @@
                 const checkbox = document.getElementById("check" + id);
                 const textbox = document.getElementById("text" + id);
                 const label = document.getElementById("label" + id);
+                const angle = document.getElementById("angle" + id);
+                const label2 = document.getElementById("label2" + id);
                 if (checkbox.checked){
                     textbox.style.display = "flex";
                     label.style.display = "flex";
+                    angle.style.display = "flex";
+                    label2.style.display = "flex";
                 }
                 else {
                     textbox.style.display = "none";
                     label.style.display = "none";
+                    angle.style.display = "none";
+                    label2.style.display = "none";
                     //textbox.value = "";
 
                 }
@@ -99,7 +113,16 @@
             document.getElementById('textN').addEventListener("input", run );
             document.getElementById('textF').addEventListener('input', run );
             function run(){
-                iframe.contentWindow.getForces(document.getElementById('textA').value, document.getElementById('textG').value, document.getElementById('textN').value, document.getElementById('textF').value);
+                let lengthA = document.getElementById('textA').value;
+                let lengthG = document.getElementById('textG').value;
+                let lengthN = document.getElementById('textN').value;
+                let lengthF = document.getElementById('textF').value;
+
+                let angleA = document.getElementById('angleA').value;
+                let angleG = document.getElementById('angleG').value;
+                let angleN = document.getElementById('angleN').value;
+                let angleF = document.getElementById('angleF').value;
+                iframe.contentWindow.getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF);
                 
             }
 

@@ -144,13 +144,15 @@ button:hover {
 
 
 .inputs ul li .number{
-    width: 50px;
+    min-width: 25px;
+    max-width: 50px;
+    field-sizing: content;
     margin-left: 10px;
     margin-right: 10px;
-    display: none;
+    display: flex;
 }
 .inputs ul li .hidelabel{
-    display: none;
+    display: flex;
 }
 
 .inputs ul li .check {
