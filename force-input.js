@@ -1,4 +1,6 @@
 const maxValue = 100;
+const minAngle = -360;
+const maxAngle = 360;
 const forcesList = ["A", "G", "N", "F"];
 
 function valueCheck(id) {
@@ -14,8 +16,12 @@ function valueCheck(id) {
 
         }
 
+}
 
-
+function angleCheck(id) {
+    if (document.getElementById("angle"+id).value < minAngle || document.getElementById("angle"+id).value > maxAngle) {
+        document.getElementById("angle"+id).value = document.getElementById("angle"+id).value / 10;
+    }
 }
 
 function reset() {
