@@ -40,7 +40,6 @@ function draw() {
 }
 
 function drawBorder() {
-    stroke=0;
     size = 3;
     background = 255;
     size2 = 10;
@@ -80,16 +79,20 @@ function findNetForce() {
     let Fx = forces[3][0]*Math.cos(forces[3][1]);
 
     let totalX = Ax+Gx+Nx+Fx;
-
+    
+    //console.log(myRound(Ax, 3), myRound(Gx, 3), myRound(Nx, 3), myRound(Fx, 3), myRound(totalX, 3));
+    
     let Ay = forces[0][0]*Math.sin(forces[0][1]);
     let Gy = forces[1][0]*Math.sin(forces[1][1]);
     let Ny = forces[2][0]*Math.sin(forces[2][1]);
     let Fy = forces[3][0]*Math.sin(forces[3][1]);
     let totalY = Ay+Gy+Ny+Fy;
 
-    console.log(myRound(Ay, 3), myRound(Gy, 3), myRound(Ny, 3), myRound(Fy, 3), myRound(totalY, 3));
+    //console.log(myRound(Ay, 3), myRound(Gy, 3), myRound(Ny, 3), myRound(Fy, 3), myRound(totalY, 3));
     let netForce = Math.sqrt(totalX*totalX + totalY*totalY)
-    let theta = Math.atan(totalY/totalX);
+    console.log(netForce);
+    let theta = Math.atan(Math.abs(totalY)/Math.abs(totalX));
+    
     //stroke(255, 0, 0);
     let change = 1;
     
@@ -99,17 +102,18 @@ function findNetForce() {
     
     //showNetForce();
 
-    let posX = "[R]";
-    let posY = "[U]";
+    let posX = "→";
+    let posY = "↑";
 
     if (totalX<0){
-        posX = "[L]";
+        posX = "←";
     }
     if (totalY<0) {
-        posY = "[D]";
+        posY = "↓";
     }
-
-    return [Math.round(netForce*100)/100, Math.round(theta*18000/Math.PI)/100, posX, posY];
+//console.log(theta*180/Math.PI);
+    return [myRound(netForce, 3), myRound(theta, 3), posX, posY];
+    
 }
 
 function myRound (v, d) {
@@ -117,7 +121,10 @@ function myRound (v, d) {
 }
 
 function showNetForce(netForce, theta) {
+    stroke(255, 0, 0);
+    fill(255, 0, 0);
     angleLine(netForce, theta, "NET");
+    stroke(0, 0, 0);
 }
 
 
@@ -139,7 +146,7 @@ windowResized()
     
     //console.log(A);
     drawBorder();
-    
+    fill(0);
     //line(centerX, centerY, centerX+A, centerY)
     angleLine(forces[0][0], forces[0][1], "A");
     angleLine(forces[1][0], forces[1][1], "g");
@@ -183,12 +190,12 @@ function angleLine(l, r, str) {
     let y = l* Math.sin(r);
 
     line(centerX, centerY, centerX+x, centerY-y)
-    noFill();
+    //noFill();
     let tipX = centerX+x;
     let tipY = centerY-y;
     let tipSize = 10;
     let angle = 0.5;
-    fill(0);
+    
     if (l>50){
         triangle(tipX, tipY, tipX-tipSize*(Math.cos(r-angle)), tipY+tipSize*(Math.sin(r-angle)), tipX-tipSize*(Math.cos(r+angle)), tipY+tipSize*(Math.sin(r+angle)));
 

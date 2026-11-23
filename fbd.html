@@ -104,6 +104,8 @@
 
     
     <script>
+
+        iframe.contentWindow.windowResized();
             function showTextbox(id){
                 const checkbox = document.getElementById("check" + id);
                 const textbox = document.getElementById("text" + id);
@@ -147,7 +149,19 @@
                 let data = iframe.contentWindow.findNetForce();
                 document.getElementById("netForce").textContent = data[0] + "m" + data[2] + data[1] + data[3];
                 if (document.getElementById('checkForce').checked){
-                    iframe.contentWindow.showNetForce(data[0], data[1]);
+                    if (data[2]=="←" && data[3]=="↓"){
+                        iframe.contentWindow.showNetForce(data[0], Math.PI + data[1]);
+                    }
+                    else if (data[2]=="←"){
+                        iframe.contentWindow.showNetForce(data[0], Math.PI - data[1]);
+                    }
+                    else if (data[3]=="↓"){
+                        iframe.contentWindow.showNetForce(data[0], -data[1]);
+                    }
+                    else {
+                        iframe.contentWindow.showNetForce(data[0], data[1]);
+                    }
+                    
                 }
             }
 
