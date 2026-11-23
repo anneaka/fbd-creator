@@ -1,4 +1,6 @@
 const maxValue = 100;
+const minAngle = -360;
+const maxAngle = 360;
 const forcesList = ["A", "G", "N", "F"];
 
 function valueCheck(id) {
@@ -14,32 +16,21 @@ function valueCheck(id) {
 
         }
 
-
-
 }
 
-
-
-
-
-
-/*function setup() {
-    let windowHeight = 180;
-    let windowWidth = 360;
-    createCanvas(windowWidth, windowHeight)
-    background(235);
-
-    // gravity
-    inputFg = createInput(0, Number);
-    inputFg.position(100, 40);
-    inputFg.size(50);
-
+function angleCheck(id) {
+    if (document.getElementById("angle"+id).value < minAngle || document.getElementById("angle"+id).value > maxAngle) {
+        document.getElementById("angle"+id).value = document.getElementById("angle"+id).value / 10;
+    }
 }
-function draw() {
-    let g = inputFg.value();
-    background(235);
-    text(g, 50, 50);
+
+function reset() {
+    for (i = 0; i < forcesList.length; i++) {
+        document.getElementById("text"+forcesList[i]).value = 0;
+        document.getElementById("angle"+forcesList[i]).value = 0;
+    }
+
     
 }
-*/
+
 
