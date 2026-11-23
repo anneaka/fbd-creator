@@ -148,7 +148,7 @@ button:hover {
     max-width: 50px;
     field-sizing: content;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 3px;
     display: flex;
 }
 .inputs ul li .hidelabel{

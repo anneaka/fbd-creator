@@ -37,7 +37,7 @@
                     <input type="number" class="number" id="textA" min="0" max="1000" step="any">
                     <label id="labelA" class="hidelabel">N</label >
                     <input type="number" class="number" id="angleA" min="-360" max="360" step="any">
-                    <label id="label2A" class="hidelabel">θ</label >
+                    <label id="label2A" class="hidelabel">°</label >
                 </li>
                 <li>
                     <input type="checkbox" class="check" id="checkG" checked="true" disabled="disabled" readonly="readonly">
@@ -45,7 +45,7 @@
                     <input type="number" class="number" id="textG" style="display: flex" min="0" max="1000" step="any" >
                     <label id="labelG" >N</label >
                     <input type="number" class="number" id="angleG" min="-360" max="360" step="any">
-                    <label id="label2G" class="hidelabel">θ</label >
+                    <label id="label2G" class="hidelabel">°</label >
                 </li>
                 <li>
                     <input type="checkbox" class="check" id="checkN" checked="true" onclick="showTextbox('N')">
@@ -53,7 +53,7 @@
                     <input type="number" class="number" id="textN" min="0" max="1000" step="any">
                     <label id="labelN" class="hidelabel">N</label >
                     <input type="number" class="number" id="angleN" min="-360" max="360" step="any">
-                    <label id="label2N" class="hidelabel">θ</label >
+                    <label id="label2N" class="hidelabel">°</label >
                 </li>
                 <li>
                     <input type="checkbox" class="check" id="checkF" checked="true" onclick="showTextbox('F')">
@@ -61,7 +61,7 @@
                     <input type="number" class="number" id="textF" min="0" max="1000" step="any">
                     <label id="labelF" class="hidelabel">N</label >
                     <input type="number" class="number" id="angleF" min="-360" max="360" step="any">
-                    <label id="label2F" class="hidelabel">θ</label >
+                    <label id="label2F" class="hidelabel">°</label >
                 </li>
             </ul>
 
@@ -92,13 +92,10 @@
             </script>
 
             <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
-<<<<<<< HEAD
         
         <br>
         <br>
-=======
             <button onclick="reset()">Reset</button>
->>>>>>> 0f57f5b55efae7852b4c5d0da4109aa4285a060f
         </div>
     </div>
 
@@ -147,7 +144,6 @@
                 iframe.contentWindow.getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF);
                 
                 let data = iframe.contentWindow.findNetForce();
-                document.getElementById("netForce").textContent = data[0] + "m" + data[2] + data[1] + data[3];
                 if (document.getElementById('checkForce').checked){
                     if (data[2]=="←" && data[3]=="↓"){
                         iframe.contentWindow.showNetForce(data[0], Math.PI + data[1]);
@@ -163,6 +159,18 @@
                     }
                     
                 }
+
+                
+               data[1]=iframe.contentWindow.myRound(data[1]*180/Math.PI, 1);
+               if (Number.isNaN(data[1])||data[1]==0){
+                    data[1]="";
+                }
+                else {
+                    data[1]+="°";
+                }
+               //console.log(data[1]);
+                document.getElementById("netForce").textContent = data[0] + " N [" + data[2] + data[1] + data[3]+"]";
+                
             }
 
             window.addEventListener("resize", resize);

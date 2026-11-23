@@ -47,6 +47,14 @@ function drawBorder() {
     //line(0, 0, myWidth, myHeight);
     fill(255);
     rect(size, size, myWidth-size, myHeight-size);
+
+    stroke(100);
+    for(i=50; i<=myWidth-50; i=i+10) {
+        line(i, myHeight/2, i+5, myHeight/2);
+    }
+    for(i=50; i<=myHeight-50; i=i+10) {
+        line(myWidth/2, i, myWidth/2, i+5);
+    }
 //line(0, 0, myWidth, myHeight);
   //line(myWidth, 0, 0, myHeight);
    
@@ -59,7 +67,7 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
     forces[1] = [constrain(lengthG, 0, myWidth/2), Math.PI * (angleG-90)/180];
     forces[2] = [constrain(lengthN, 0, myWidth/2), -1*Math.PI * (angleN-90)/180];
     forces[3] = [constrain(lengthF, 0, myWidth/2), -1*Math.PI * (angleF-180)/180];
-
+stroke(0);
     drawLines(forces);
 
     //let max = findMax(forces);
@@ -90,7 +98,7 @@ function findNetForce() {
 
     //console.log(myRound(Ay, 3), myRound(Gy, 3), myRound(Ny, 3), myRound(Fy, 3), myRound(totalY, 3));
     let netForce = Math.sqrt(totalX*totalX + totalY*totalY)
-    console.log(netForce);
+    //console.log(netForce);
     let theta = Math.atan(Math.abs(totalY)/Math.abs(totalX));
     
     //stroke(255, 0, 0);
@@ -108,8 +116,14 @@ function findNetForce() {
     if (totalX<0){
         posX = "←";
     }
+    else if (myRound(totalX, 3)==0){
+        posX = "";
+    }
     if (totalY<0) {
         posY = "↓";
+    }
+    else if (myRound(totalY, 3)==0){
+        posY = "";
     }
 //console.log(theta*180/Math.PI);
     return [myRound(netForce, 3), myRound(theta, 3), posX, posY];
@@ -123,7 +137,7 @@ function myRound (v, d) {
 function showNetForce(netForce, theta) {
     stroke(255, 0, 0);
     fill(255, 0, 0);
-    angleLine(netForce, theta, "NET");
+    angleLine(netForce, theta, "ɴᴇᴛ");
     stroke(0, 0, 0);
 }
 
@@ -148,10 +162,10 @@ windowResized()
     drawBorder();
     fill(0);
     //line(centerX, centerY, centerX+A, centerY)
-    angleLine(forces[0][0], forces[0][1], "A");
-    angleLine(forces[1][0], forces[1][1], "g");
-    angleLine(forces[2][0], forces[2][1], "N");
-    angleLine(forces[3][0], forces[3][1], "f");
+    angleLine(forces[0][0], forces[0][1], "ᴀ");
+    angleLine(forces[1][0], forces[1][1], "ᵍ");
+    angleLine(forces[2][0], forces[2][1], "ɴ");
+    angleLine(forces[3][0], forces[3][1], "ᶠ");
 
     //console.log(forces[2][1]);
     //line(centerX, centerY, centerX, centerY+lengthG)
