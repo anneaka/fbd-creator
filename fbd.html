@@ -65,6 +65,14 @@
                 </li>
             </ul>
 
+
+            <div>
+                <input type="checkbox" class="check" id="checkForce" checked="true" onclick="showTextbox('F')">
+                <label>Show Net Force</label>
+                <label id="netForce"></label>
+                    
+            </div>
+
             <script src="force-input.js"></script>
             <script>
                 
@@ -79,6 +87,9 @@
             </script>
 
             <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
+        
+        <br>
+        <br>
         </div>
     </div>
 
@@ -124,6 +135,11 @@
                 let angleF = document.getElementById('angleF').value;
                 iframe.contentWindow.getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF);
                 
+                let data = iframe.contentWindow.findNetForce();
+                document.getElementById("netForce").textContent = data[0] + "m" + data[2] + data[1] + data[3];
+                if (document.getElementById('checkForce').checked){
+                    iframe.contentWindow.showNetForce(data[0], data[1]);
+                }
             }
 
             window.addEventListener("resize", resize);
@@ -131,6 +147,7 @@
                 iframe.contentWindow.windowResized();
                 
             }
+
 
 
             

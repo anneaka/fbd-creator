@@ -27,7 +27,7 @@ function windowResized() {
         
         createCanvas(myWidth, myHeight);
         drawBorder();
-    console.log("a");
+    //console.log("a");
     }
 
 
@@ -56,13 +56,70 @@ function drawBorder() {
 }
 
 function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
-    forces[0] = [constrain(lengthA, 0, myWidth/2), angleA];
-    forces[1] = [constrain(lengthG, 0, myWidth/2), angleG];
-    forces[2] = [constrain(lengthN, 0, myWidth/2), angleN];
-    forces[3] = [constrain(lengthF, 0, myWidth/2), angleF];
+    forces[0] = [constrain(lengthA, 0, myWidth/2), Math.PI * angleA/180];
+    forces[1] = [constrain(lengthG, 0, myWidth/2), Math.PI * (angleG-90)/180];
+    forces[2] = [constrain(lengthN, 0, myWidth/2), -1*Math.PI * (angleN-90)/180];
+    forces[3] = [constrain(lengthF, 0, myWidth/2), -1*Math.PI * (angleF-180)/180];
 
     drawLines(forces);
+
+    //let max = findMax(forces);
+
+    
+    
+    
+    //console.log("a");
+    //stroke(0);
 }
+
+function findNetForce() {
+
+    let Ax = forces[0][0]*Math.cos(forces[0][1]);
+    let Gx = forces[1][0]*Math.cos(forces[1][1]);
+    let Nx = forces[2][0]*Math.cos(forces[2][1]);
+    let Fx = forces[3][0]*Math.cos(forces[3][1]);
+
+    let totalX = Ax+Gx+Nx+Fx;
+
+    let Ay = forces[0][0]*Math.sin(forces[0][1]);
+    let Gy = forces[1][0]*Math.sin(forces[1][1]);
+    let Ny = forces[2][0]*Math.sin(forces[2][1]);
+    let Fy = forces[3][0]*Math.sin(forces[3][1]);
+    let totalY = Ay+Gy+Ny+Fy;
+
+    console.log(myRound(Ay, 3), myRound(Gy, 3), myRound(Ny, 3), myRound(Fy, 3), myRound(totalY, 3));
+    let netForce = Math.sqrt(totalX*totalX + totalY*totalY)
+    let theta = Math.atan(totalY/totalX);
+    //stroke(255, 0, 0);
+    let change = 1;
+    
+    if (totalY<0) {
+        change*=-1;
+    }
+    
+    //showNetForce();
+
+    let posX = "[R]";
+    let posY = "[U]";
+
+    if (totalX<0){
+        posX = "[L]";
+    }
+    if (totalY<0) {
+        posY = "[D]";
+    }
+
+    return [Math.round(netForce*100)/100, Math.round(theta*18000/Math.PI)/100, posX, posY];
+}
+
+function myRound (v, d) {
+    return (Math.round(v*Math.pow(10, d)))/Math.pow(10, d);
+}
+
+function showNetForce(netForce, theta) {
+    angleLine(netForce, theta, "NET");
+}
+
 
 function findMax(forces) {
     let max = forces[0];
@@ -71,6 +128,7 @@ function findMax(forces) {
             max = forces[i];
         }
     }
+    return max;
 }
 
 function drawLines(forces) {
@@ -84,9 +142,11 @@ windowResized()
     
     //line(centerX, centerY, centerX+A, centerY)
     angleLine(forces[0][0], forces[0][1], "A");
-    angleLine(forces[1][0], forces[1][1]-90, "g");
-    angleLine(forces[2][0], -1*forces[2][1]+90, "N");
-    angleLine(forces[3][0], -1*forces[3][1]-180, "f");
+    angleLine(forces[1][0], forces[1][1], "g");
+    angleLine(forces[2][0], forces[2][1], "N");
+    angleLine(forces[3][0], forces[3][1], "f");
+
+    //console.log(forces[2][1]);
     //line(centerX, centerY, centerX, centerY+lengthG)
     //line(centerX, centerY, centerX, centerY-lengthN)
     //line(centerX, centerY, centerX-lengthF, centerY)
@@ -117,8 +177,8 @@ function constrain(length, min, max) {
     }
 }
 
-function angleLine(l, d, str) {
-    let r = Math.PI * d/180
+function angleLine(l, r, str) {
+    //let r = Math.PI * d/180;
     let x = l* Math.cos(r);
     let y = l* Math.sin(r);
 
