@@ -1,4 +1,4 @@
-const maxValue = 100;
+const maxValue = 1000;
 const minAngle = -360;
 const maxAngle = 360;
 const forcesList = ["A", "G", "N", "F"];

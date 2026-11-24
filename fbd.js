@@ -4,6 +4,7 @@ let myHeight=500;
 let centerX = myWidth/2;
 let centerY = myHeight/2;
 const forces=[0, 0, 0, 0];
+const forceVis=[0, 0, 0, 0];
 
 function setup() {
         
@@ -63,12 +64,38 @@ function drawBorder() {
 }
 
 function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
-    forces[0] = [constrain(lengthA, 0, myWidth/2), Math.PI * angleA/180];
-    forces[1] = [constrain(lengthG, 0, myWidth/2), Math.PI * (angleG-90)/180];
-    forces[2] = [constrain(lengthN, 0, myWidth/2), -1*Math.PI * (angleN-90)/180];
-    forces[3] = [constrain(lengthF, 0, myWidth/2), -1*Math.PI * (angleF-180)/180];
+    forces[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
+    forces[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
+    forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
+    forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    if (lengthA >= 650 || lengthG >= 650 || lengthN >= 650 || lengthF >= 650) {
+        forceVis[0] = [constrain(lengthA/5, 0, 1000), Math.PI * angleA/180];
+        forceVis[1] = [constrain(lengthG/5, 0, 1000), Math.PI * (angleG-90)/180];
+        forceVis[2] = [constrain(lengthN/5, 0, 1000), -1*Math.PI * (angleN-90)/180];
+        forceVis[3] = [constrain(lengthF/5, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    }
+    else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
+        forceVis[0] = [constrain(lengthA/3, 0, 1000), Math.PI * angleA/180];
+        forceVis[1] = [constrain(lengthG/3, 0, 1000), Math.PI * (angleG-90)/180];
+        forceVis[2] = [constrain(lengthN/3, 0, 1000), -1*Math.PI * (angleN-90)/180];
+        forceVis[3] = [constrain(lengthF/3, 0, 1000), -1*Math.PI * (angleF-180)/180];
+
+    }
+    else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
+        forceVis[0] = [constrain(lengthA/2, 0, 1000), Math.PI * angleA/180];
+        forceVis[1] = [constrain(lengthG/2, 0, 1000), Math.PI * (angleG-90)/180];
+        forceVis[2] = [constrain(lengthN/2, 0, 1000), -1*Math.PI * (angleN-90)/180];
+        forceVis[3] = [constrain(lengthF/2, 0, 1000), -1*Math.PI * (angleF-180)/180];
+
+    }
+    else {
+        forceVis[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
+        forceVis[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
+        forceVis[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
+        forceVis[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    }
 stroke(0);
-    drawLines(forces);
+    drawLines(forceVis);
 
     //let max = findMax(forces);
 
