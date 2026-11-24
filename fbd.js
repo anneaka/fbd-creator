@@ -32,6 +32,9 @@ function windowResized() {
 function draw() {
     // scales size of sketch based on window size
     scale(myWidth/500);
+    centerX = myWidth/2;
+    centerY = myHeight/2;
+    
 }
 
 function drawBorder() {
@@ -80,35 +83,19 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
     forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
     forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
     // force values displayed on diagram
-    if (lengthA >= 650 || lengthG >= 650 || lengthN >= 650 || lengthF >= 650) {
-        forceVis[0] = [constrain(lengthA/5, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/5, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/5, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/5, 0, 1000), -1*Math.PI * (angleF-180)/180];
-        scaling = 5;
+    if (lengthA > 650 || lengthG > 650 || lengthN > 650 || lengthF > 650) {
+        scaling = 4.44444;
     }
     else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
-        forceVis[0] = [constrain(lengthA/3, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/3, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/3, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/3, 0, 1000), -1*Math.PI * (angleF-180)/180];
-        scaling = 3;
+        scaling = 2.88888;
     }
     else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
-        forceVis[0] = [constrain(lengthA/2, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/2, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/2, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/2, 0, 1000), -1*Math.PI * (angleF-180)/180];
         scaling = 2;
     }
     else {
-        forceVis[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
         scaling = 1;
     }
-    stroke(0);
+stroke(0);
     drawLines(forceVis);
 
 }
