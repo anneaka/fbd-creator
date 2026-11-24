@@ -37,6 +37,28 @@ function draw() {
     scale(myWidth/500);
     centerX = myWidth/2;
     centerY = myHeight/2;
+    noStroke();
+    fill(255);
+    rect(myWidth/2-110, myHeight-22, 100, 15);
+    fill(30);
+    stroke(90);
+    line(myWidth/2, myHeight-12.5, myWidth-25, myHeight-12.5);
+    line(myWidth/2, myHeight-9, myWidth/2, myHeight-16);
+    line(myWidth-25, myHeight-9, myWidth-25, myHeight-16);
+    noStroke();
+    textSize(15);
+    if (scaling == 4.44444) {
+        text('Scale (1000N) ', myWidth/2-105, myHeight-10);
+    }
+    else if (scaling == 2.88888) {
+        text('Scale (650N) ', myWidth/2-105, myHeight-10);
+    }
+    else if (scaling == 2) {
+        text('Scale (450N) ', myWidth/2-105, myHeight-10);
+    }
+    else {
+        text('Scale (225N) ', myWidth/2-105, myHeight-10);
+    }
     
 }
 
@@ -70,35 +92,24 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
     forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
     forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
     // force values displayed on diagram
-    if (lengthA >= 650 || lengthG >= 650 || lengthN >= 650 || lengthF >= 650) {
-        forceVis[0] = [constrain(lengthA/5, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/5, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/5, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/5, 0, 1000), -1*Math.PI * (angleF-180)/180];
-        scaling = 5;
+    if (lengthA > 650 || lengthG > 650 || lengthN > 650 || lengthF > 650) {
+        scaling = 4.44444;
     }
     else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
-        forceVis[0] = [constrain(lengthA/3, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/3, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/3, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/3, 0, 1000), -1*Math.PI * (angleF-180)/180];
-        scaling = 3;
+        scaling = 2.88888;
     }
     else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
-        forceVis[0] = [constrain(lengthA/2, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG/2, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN/2, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF/2, 0, 1000), -1*Math.PI * (angleF-180)/180];
         scaling = 2;
     }
     else {
-        forceVis[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
-        forceVis[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
-        forceVis[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
-        forceVis[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
         scaling = 1;
     }
-stroke(0);
+
+    forceVis[0] = [constrain(lengthA/scaling, 0, 1000), Math.PI * angleA/180];
+    forceVis[1] = [constrain(lengthG/scaling, 0, 1000), Math.PI * (angleG-90)/180];
+    forceVis[2] = [constrain(lengthN/scaling, 0, 1000), -1*Math.PI * (angleN-90)/180];
+    forceVis[3] = [constrain(lengthF/scaling, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    stroke(0);
     drawLines(forceVis);
 
     //let max = findMax(forces);
