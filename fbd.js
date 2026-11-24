@@ -5,8 +5,8 @@ let centerX = myWidth/2;
 let centerY = myHeight/2;
 const forces=[0, 0, 0, 0];
 const forceVis=[0, 0, 0, 0];
-
-function setup() {
+let scaling = 1;
+/*function setup() {
         
     myWidth=windowWidth;
     myHeight=windowWidth;
@@ -16,7 +16,7 @@ function setup() {
     background(255);
     drawBorder();
     
-}
+}*/
 
 
 
@@ -64,29 +64,32 @@ function drawBorder() {
 }
 
 function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
+    // force values for numerical calculations
     forces[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
     forces[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
     forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
     forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    // force values displayed on diagram
     if (lengthA >= 650 || lengthG >= 650 || lengthN >= 650 || lengthF >= 650) {
         forceVis[0] = [constrain(lengthA/5, 0, 1000), Math.PI * angleA/180];
         forceVis[1] = [constrain(lengthG/5, 0, 1000), Math.PI * (angleG-90)/180];
         forceVis[2] = [constrain(lengthN/5, 0, 1000), -1*Math.PI * (angleN-90)/180];
         forceVis[3] = [constrain(lengthF/5, 0, 1000), -1*Math.PI * (angleF-180)/180];
+        scaling = 5;
     }
     else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
         forceVis[0] = [constrain(lengthA/3, 0, 1000), Math.PI * angleA/180];
         forceVis[1] = [constrain(lengthG/3, 0, 1000), Math.PI * (angleG-90)/180];
         forceVis[2] = [constrain(lengthN/3, 0, 1000), -1*Math.PI * (angleN-90)/180];
         forceVis[3] = [constrain(lengthF/3, 0, 1000), -1*Math.PI * (angleF-180)/180];
-
+        scaling = 3;
     }
     else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
         forceVis[0] = [constrain(lengthA/2, 0, 1000), Math.PI * angleA/180];
         forceVis[1] = [constrain(lengthG/2, 0, 1000), Math.PI * (angleG-90)/180];
         forceVis[2] = [constrain(lengthN/2, 0, 1000), -1*Math.PI * (angleN-90)/180];
         forceVis[3] = [constrain(lengthF/2, 0, 1000), -1*Math.PI * (angleF-180)/180];
-
+        scaling = 2;
     }
     else {
         forceVis[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
@@ -164,7 +167,7 @@ function myRound (v, d) {
 function showNetForce(netForce, theta) {
     stroke(255, 0, 0);
     fill(255, 0, 0);
-    angleLine(netForce, theta, "ɴᴇᴛ");
+    angleLine(netForce/scaling, theta, "ɴᴇᴛ");
     stroke(0, 0, 0);
 }
 
