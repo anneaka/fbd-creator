@@ -96,6 +96,7 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
         forceVis[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
         forceVis[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
         forceVis[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+        scaling = 1;
     }
 stroke(0);
     drawLines(forceVis);
