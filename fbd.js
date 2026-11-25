@@ -25,7 +25,7 @@ function windowResized() {
         createCanvas(myWidth, myHeight);
 
         // draws background and border of sketch
-        drawBorder();
+        drawBackground();
     }
 
 
@@ -37,7 +37,7 @@ function draw() {
     
 }
 
-function drawBorder() {
+function drawBackground() {
 
     // set parameters for easy modification
     let size = 3;
@@ -45,19 +45,12 @@ function drawBorder() {
     let size2 = 10;
     
     // draw rectangle for backgound
+    stroke(0);
     fill(255);
     rect(size, size, myWidth-size, myHeight-size);
 
-    // draw dashed perpendicular guidelines 
-    stroke(100);
-    for(i=50; i<=myWidth-50; i=i+10) {
-        line(i, myHeight/2, i+5, myHeight/2);
-    }
-    for(i=50; i<=myHeight-50; i=i+10) {
-        line(myWidth/2, i, myWidth/2, i+5);
-    }
-
     // draws guides representing positive directions
+    fill(0);
     text("+", 15, 15);
     text("+", 55, 50);
     line(20, 55, 20, 20);
@@ -68,6 +61,16 @@ function drawBorder() {
     // draw circle representing center of mass of object in free body diagram
     fill(0);
     circle(myWidth/2, myWidth/2, 3);
+
+    // draw dashed perpendicular guidelines 
+    stroke(100);
+    for(i=50; i<=myWidth-50; i=i+10) {
+        line(i, myHeight/2, i+5, myHeight/2);
+    }
+    for(i=50; i<=myHeight-50; i=i+10) {
+        line(myWidth/2, i, myWidth/2, i+5);
+    }
+
 }
 
 /**
@@ -92,10 +95,22 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
     else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
         scaling = 2;
     }
+    else if (lengthA < 50 && lengthG < 50 && lengthN < 50 && lengthF < 50){
+        scaling = 0.22;
+    }
     else {
         scaling = 1;
     }
-stroke(0);
+
+    
+
+    scaling=scaling*1.2;
+
+    for(i=0; i<forces.length; i++){
+        forceVis[i] = [forces[i][0]/scaling, forces[i][1]];
+    }
+
+    stroke(0);
     drawLines(forceVis);
 
 }
@@ -169,8 +184,8 @@ function myRound (value, decimals) {
  * @param theta direction of net force
  */
 function showNetForce(netForce, theta) {
-    stroke(255, 0, 0);
-    fill(255, 0, 0);
+    stroke(20, 0, 200);
+    fill(20, 0, 200);
     angleLine(netForce/scaling, theta, "ɴᴇᴛ");
     stroke(0, 0, 0);
 }
@@ -201,7 +216,7 @@ function drawLines(forces) {
     rect(-50, -50, myWidth+50, myHeight+50)
     
     // draws background
-    drawBorder();
+    drawBackground();
     
     // draws force vectors
     angleLine(forces[0][0], forces[0][1], "ᴀ");

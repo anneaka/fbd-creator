@@ -3,6 +3,15 @@ const minAngle = -360;
 const maxAngle = 360;
 const forcesList = ["A", "G", "N", "F"];
 
+for(i=0; i<forcesList.length; i++){
+    const angle = document.getElementById("angle" + forcesList[i]);
+    const textbox = document.getElementById("text" + forcesList[i]);
+    angle.value = 0;
+    textbox.value = 0;
+    
+}
+
+
 function valueCheck(id) {
         
         if (document.getElementById("text"+id).value < 0 || document.getElementById("text"+id).value > maxValue) {

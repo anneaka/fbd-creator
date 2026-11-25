@@ -67,7 +67,7 @@
 
 
             <div>
-                <input type="checkbox" class="check" id="checkForce" checked="true" onclick="showTextbox('F')">
+                <input type="checkbox" class="check" id="checkForce" value="yes">
                 <label>Show Net Force</label>
                 <label id="netForce"></label>
                     
@@ -119,6 +119,8 @@
                     label.style.display = "none";
                     angle.style.display = "none";
                     label2.style.display = "none";
+                    angle.value = 0;
+                    textbox.value = 0;
                     //textbox.value = "";
 
                 }
