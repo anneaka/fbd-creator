@@ -71,6 +71,35 @@ function drawBackground() {
         line(myWidth/2, i, myWidth/2, i+5);
     }
 
+    // draw visual scale
+    noStroke();
+    fill(255);
+    rect(myWidth/2-110, myHeight-22, 100, 15);
+    fill(30);
+    stroke(90);
+    line(myWidth/2, myHeight-12.5, myWidth-25, myHeight-12.5);
+    line(myWidth/2, myHeight-9, myWidth/2, myHeight-16);
+    line(myWidth-25, myHeight-9, myWidth-25, myHeight-16);
+    noStroke();
+    textSize(15);
+    if (scaling == 4.44444*1.2) {
+        text('Scale (1000N) ', myWidth/2-105, myHeight-10);
+    }
+    else if (scaling == 2.88888*1.2) {
+        text('Scale (650N) ', myWidth/2-105, myHeight-10);
+    }
+    else if (scaling == 2*1.2) {
+        text('Scale (450N) ', myWidth/2-105, myHeight-10);
+    }
+    else if (scaling == 1.2) {
+        text('Scale (255N) ', myWidth/2-105, myHeight-10);
+    }
+    else {
+        text('Scale (50N) ', myWidth/2-105, myHeight-10);
+    }
+
+    stroke(0);
+
 }
 
 /**
@@ -95,7 +124,7 @@ function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, a
     else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
         scaling = 2;
     }
-    else if (lengthA < 50 && lengthG < 50 && lengthN < 50 && lengthF < 50){
+    else if (lengthA <= 50 && lengthG <= 50 && lengthN <= 50 && lengthF <= 50){
         scaling = 0.22;
     }
     else {
