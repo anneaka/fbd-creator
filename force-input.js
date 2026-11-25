@@ -59,4 +59,27 @@ function reset() {
     
 }
 
+/**
+ * Allows input in only one box depending on which radio is inputted
+ */
+function showRadio() {
+    const radioM = document.getElementById("radioM");
+    const radioboxM = document.getElementById("radioboxM");
+    const radioA = document.getElementById("radioA");
+    const radioboxA = document.getElementById("radioboxA");
+    radioboxM.value = "";
+    radioboxA.value = "";
+    if (radioM.checked == true) {
+        radioboxM.disabled = false;
+    }  
+    else {
+        radioboxM.disabled = true;
+    }
+    if (radioA.checked == true) {
+        radioboxA.disabled = false;
+    }
+    else {
+        radioboxA.disabled = true;
+    }
 
+}

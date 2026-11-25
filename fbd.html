@@ -73,10 +73,19 @@
                     
             </div>
 
+            <div>
+                <input type="radio" id="radioM" class="radio" name="ma" onchange="showRadio()">Mass: </input> 
+                <input type ="number" id="radioboxM" class="number" disabled="disabled" placeholder="">kg</input>
+                <br>
+                <input type="radio" id="radioA" class="radio" name="ma" onchange="showRadio()">Acceleration</input>
+                <input type ="number" id="radioboxA" class="number" disabled="disabled" placeholder="">m/s²</input>
+                <text id="accelAngle">[]</text>
+            </div>
+
             <script src="force-input.js"></script>
             <!--<script src="fbd.js"></script>-->
             <script>
-                
+
                 setInterval(function () {
                     valueCheck("A");
                     valueCheck("G");
@@ -86,8 +95,11 @@
                     angleCheck("G");
                     angleCheck("N");
                     angleCheck("F");
+                    //calculateMassAccel();
                     run();
                     }, 10);
+
+                    
             </script>
 
             <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
@@ -174,6 +186,24 @@
                 }
                //console.log(data[1]);
                 document.getElementById("netForce").textContent = data[0] + " N [" + data[2] + data[1] + data[3]+"]";
+
+                if (document.getElementById("radioM").checked == true) {
+                    if (document.getElementById("radioboxM").value <= 0) {
+                        document.getElementById("radioboxA").placeholder = "-";
+                    }
+                    else {
+                        document.getElementById("radioboxA").value = data[0] / document.getElementById("radioboxM").value;
+                    }
+                }
+                else if (document.getElementById("radioA").checked == true) {
+                    if (document.getElementById("radioboxA").value <= 0) {
+                        document.getElementById("radioboxM").placeholder = "-";
+                    }
+                    else {
+                        document.getElementById("radioboxM").value = data[0] / document.getElementById("radioboxA").value;
+                    }
+                }
+                document.getElementById("accelAngle").textContent = "[" + data[2] + data[1] + data[3]+"]";
                 
             }
 
@@ -182,6 +212,8 @@
                 iframe.contentWindow.windowResized();
                 
             }
+
+            
 
 
 

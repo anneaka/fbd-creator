@@ -141,6 +141,21 @@ p {
     margin-right: 10px;
 }
 
+#radioM {
+    margin-right: 10px;
+    margin-top: 12px;
+}
+#radioA {
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+#radioboxM, #radioboxA {
+    margin-right: 10px;
+    min-width: 25px;
+    max-width: 60px;
+}
+
 .diagram {
 
     min-width: 50%;
