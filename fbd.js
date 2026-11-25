@@ -1,11 +1,10 @@
-
-
 // initiate variables regarding canvase size
 let myWidth=500;
 let myHeight=500;
 let centerX = myWidth/2;
 let centerY = myHeight/2;
 
+// initiate scaling variables
 let scaling = 1;
 let scaleAdjust = 1.3;
 
@@ -13,7 +12,10 @@ let scaleAdjust = 1.3;
 const forces=[0, 0, 0, 0];
 const forceVis=[0, 0, 0, 0];
 
-// Creates canvas, and redraws it when window is resized
+/**
+ * Creates and redraws canvas when window is resized
+ *
+ */
 function windowResized() {
             
         // reassign window width and height variables to current window size
@@ -29,7 +31,9 @@ function windowResized() {
         drawBackground();
     }
 
-
+/**
+ * Runs continuously, and readjusts canvas scale
+ */
 function draw() {
     // scales size of sketch based on window size
     scale(myWidth/500);
@@ -38,6 +42,9 @@ function draw() {
     
 }
 
+/**
+ * Draws background of sketch
+ */
 function drawBackground() {
 
     // set parameters for easy modification
@@ -66,28 +73,27 @@ function drawBackground() {
     // draw dashed perpendicular guidelines 
     stroke(100);
     for(i=50; i<=myWidth-50; i=i+10) {
-        line(i, myHeight/2, i+5, myHeight/2);
+        line(i, centerX, i+5, centerY);
     }
     for(i=50; i<=myHeight-50; i=i+10) {
-        line(myWidth/2, i, myWidth/2, i+5);
+        line(centerY, i, centerX, i+5);
     }
 
     // draw visual scale
     noStroke();
     fill(255);
-    rect(myWidth/2-110, myHeight-22, 100, 15);
+    rect(centerX-110, myHeight-22, 100, 15);
     
     
+    // draws scale 
     fill(0);
     stroke(90);
-    line(myWidth/2, myHeight-22, myWidth-25, myHeight-22);
+    line(centerX, myHeight-22, myWidth-25, myHeight-22);
     noStroke();
-    textSize(15);
-
-    
+    textSize(10);
     text('0N', myWidth/2-5, myHeight-5);
     if (scaling == 4.44444*scaleAdjust) {
-        text('1000N', myWidth/2+187, myHeight-5);
+        text('1000N', myWidth-30, myHeight-5);
 
         stroke(0);
         line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
@@ -97,7 +103,7 @@ function drawBackground() {
         }
     }
     else if (scaling == 2.88888*scaleAdjust) {
-        text('650N', myWidth/2+187, myHeight-5);
+        text('650N', myWidth-30, myHeight-5);
 
         stroke(0);
         line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
@@ -107,7 +113,7 @@ function drawBackground() {
         }
     }
     else if (scaling == 2*scaleAdjust) {
-        text('450N', myWidth/2+187, myHeight-5);
+        text('450N', myWidth-30, myHeight-5);
     
         stroke(0);
         line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
@@ -117,7 +123,7 @@ function drawBackground() {
         }
     }
     else if (scaling == scaleAdjust) {
-        text('250N', myWidth/2+187, myHeight-5);
+        text('250N', myWidth-30, myHeight-5);
     
         stroke(0);
         for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5.1)
@@ -126,7 +132,7 @@ function drawBackground() {
         }
     }
     else {
-        text('50N', myWidth/2+187, myHeight-5);
+        text('50N', myWidth-30, myHeight-5);
         
         stroke(0);
         line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
@@ -143,8 +149,8 @@ function drawBackground() {
 /**
  * Takes in forces and angles user inputed and puts them into an array for future use
  *
- * @param 
- * calculateTotal(100); // returns 113
+ * @param force array containing force magnitudes
+ * @param angle array containing force angles
  */
 function getForces(force, angle) {
     // force values for numerical calculations
@@ -152,7 +158,7 @@ function getForces(force, angle) {
     forces[1] = [constrain(force[1], 0, 1000), Math.PI * (angle[1]-90)/180];
     forces[2] = [constrain(force[2], 0, 1000), -1*Math.PI * (angle[2]-90)/180];
     forces[3] = [constrain(force[3], 0, 1000), -1*Math.PI * (angle[3]-180)/180];
-    
+
     // force values displayed on diagram
     if (force[0] > 650 || force[1] > 650 || force[2] > 650 || force[3] > 650) {
         scaling = 4.44444;
@@ -255,17 +261,6 @@ function showNetForce(netForce, theta) {
     fill(20, 0, 200);
     angleLine(netForce/scaling, theta, "ɴᴇᴛ");
     stroke(0, 0, 0);
-}
-
-// dont know if will be used????
-function findMax(forces) {
-    let max = forces[0];
-    for (i=1; i<forces.length; i++) {
-        if (forces[i]>max) {
-            max = forces[i];
-        }
-    }
-    return max;
 }
 
 /**
