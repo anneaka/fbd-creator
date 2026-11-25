@@ -21,7 +21,13 @@ html {
     padding: 0px;
         scroll-behavior: smooth;
     
-overflow-x: hidden
+overflow-x: hidden;
+
+margin-bottom: 50px;
+}
+
+p {
+    padding: 10px;
 }
 
 .header {
@@ -35,69 +41,6 @@ overflow-x: hidden
     text-decoration: bold;
 }
 
-.section {
-
-    margin: auto;
-    margin-top: 30px;
-    
-    max-width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    flex-wrap: wrap;
-    flex-basis: 1, 1, 500px;
-    gap: 30px;
-    
-}
-
-.section .section {
-    align-items: flex-start; 
-    flex-direction: column; 
-    gap: 5px;
-    max-width: min(50%, 200px);
-
-    
-}
-
-.text-container {
-    padding: 5px;
-    text-align: left;
-    margin: auto;
-    background-color: white;
-    
-}
-
-p {
-    padding: 10px;
-}
-
-.flex {
-    display: flex;
-    align-items: center;
-}
-
-.img {
-    margin: 0;
-    width: 100%;
-}
-
-button {
-    border: 0;
-    background-color: var(--blue1);
-    padding: 10px;
-    border-radius: 30px;
-    color: white;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'Poppins';
-
-}
-button a {
-    color: white;
-    text-decoration: none;
-}
-
-button:hover {
-    font-size: 15px;
-}
 
 .header ul {
     list-style: none;
@@ -121,6 +64,45 @@ button:hover {
 
 .header ul li a:hover {
     text-decoration: underline;
+}
+
+
+
+
+.section {
+
+    margin: auto;
+
+    margin-top: 30px;
+    
+    max-width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-wrap: wrap;
+    flex-basis: 1, 1, 500px;
+    gap: 100px;
+    
+    
+}
+
+.section .section {
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    max-width: min(50%, 200px);
+    margin: 0;
+    width: fit-content;
+
+    
+}
+
+.text-container {
+    padding: 5px;
+    text-align: left;
+    margin: auto;
+    background-color: white;
+    
 }
 
 .inputs {
@@ -192,3 +174,35 @@ button:hover {
     aspect-ratio: 1/1;
     background-color: rgb(225, 93, 93);
 }
+
+
+
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    margin: 0;
+    width: 100%;
+}
+
+button {
+    border: 0;
+    background-color: var(--blue1);
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, 'Poppins';
+
+}
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    font-size: 15px;
+}
+
