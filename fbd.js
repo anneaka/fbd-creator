@@ -7,6 +7,7 @@ let centerX = myWidth/2;
 let centerY = myHeight/2;
 
 let scaling = 1;
+let scaleAdjust = 1.3;
 
 // initiate arrays holding input and display vector values
 const forces=[0, 0, 0, 0];
@@ -75,27 +76,64 @@ function drawBackground() {
     noStroke();
     fill(255);
     rect(myWidth/2-110, myHeight-22, 100, 15);
-    fill(30);
+    
+    
+    fill(0);
     stroke(90);
-    line(myWidth/2, myHeight-12.5, myWidth-25, myHeight-12.5);
-    line(myWidth/2, myHeight-9, myWidth/2, myHeight-16);
-    line(myWidth-25, myHeight-9, myWidth-25, myHeight-16);
+    line(myWidth/2, myHeight-22, myWidth-25, myHeight-22);
     noStroke();
     textSize(15);
-    if (scaling == 4.44444*1.2) {
-        text('Scale (1000N) ', myWidth/2-105, myHeight-10);
+
+    
+    text('0N', myWidth/2-5, myHeight-5);
+    if (scaling == 4.44444*scaleAdjust) {
+        text('1000N', myWidth/2+187, myHeight-5);
+
+        stroke(0);
+        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
+        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
     }
-    else if (scaling == 2.88888*1.2) {
-        text('Scale (650N) ', myWidth/2-105, myHeight-10);
+    else if (scaling == 2.88888*scaleAdjust) {
+        text('650N', myWidth/2+187, myHeight-5);
+
+        stroke(0);
+        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
+        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/6.5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
     }
-    else if (scaling == 2*1.2) {
-        text('Scale (450N) ', myWidth/2-105, myHeight-10);
+    else if (scaling == 2*scaleAdjust) {
+        text('450N', myWidth/2+187, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
+        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/4.5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
     }
-    else if (scaling == 1.2) {
-        text('Scale (255N) ', myWidth/2-105, myHeight-10);
+    else if (scaling == scaleAdjust) {
+        text('250N', myWidth/2+187, myHeight-5);
+    
+        stroke(0);
+        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5.1)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
     }
     else {
-        text('Scale (50N) ', myWidth/2-105, myHeight-10);
+        text('50N', myWidth/2+187, myHeight-5);
+        
+        stroke(0);
+        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
+        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
     }
 
     stroke(0);
@@ -108,35 +146,35 @@ function drawBackground() {
  * @param 
  * calculateTotal(100); // returns 113
  */
-function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
+function getForces(force, angle) {
     // force values for numerical calculations
-    forces[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
-    forces[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
-    forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
-    forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    forces[0] = [constrain(force[0], 0, 1000), Math.PI * angle[0]/180];
+    forces[1] = [constrain(force[1], 0, 1000), Math.PI * (angle[1]-90)/180];
+    forces[2] = [constrain(force[2], 0, 1000), -1*Math.PI * (angle[2]-90)/180];
+    forces[3] = [constrain(force[3], 0, 1000), -1*Math.PI * (angle[3]-180)/180];
+    
     // force values displayed on diagram
-    if (lengthA > 650 || lengthG > 650 || lengthN > 650 || lengthF > 650) {
+    if (force[0] > 650 || force[1] > 650 || force[2] > 650 || force[3] > 650) {
         scaling = 4.44444;
     }
-    else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
+    else if (force[0] > 450 || force[1] > 450 || force[2] > 450 || force[3] > 450){
         scaling = 2.88888;
     }
-    else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
+    else if (force[0] > 225 || force[1] > 225 || force[2] > 225 || force[3] > 225){
         scaling = 2;
     }
-    else if (lengthA <= 50 && lengthG <= 50 && lengthN <= 50 && lengthF <= 50){
-        scaling = 0.22;
-    }
-    else {
+    else if (force[0] > 50 || force[1] > 50 || force[2] > 50 || force[3] > 50){
         scaling = 1;
     }
+    else {
+        scaling = 0.22;
+    }
 
-    
-
-    scaling=scaling*1.2;
+    // adjust scaling
+    scaling=scaling*scaleAdjust;
 
     for(i=0; i<forces.length; i++){
-        forceVis[i] = [forces[i][0]/scaling, forces[i][1]];
+        forceVis[i] = [Number(forces[i][0]/scaling), Number(forces[i][1])];
     }
 
     stroke(0);

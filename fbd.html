@@ -142,7 +142,10 @@
                 let angleG = document.getElementById('angleG').value;
                 let angleN = document.getElementById('angleN').value;
                 let angleF = document.getElementById('angleF').value;
-                iframe.contentWindow.getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF);
+
+                const forces = [lengthA, lengthG, lengthN, lengthF];
+                const angles = [angleA, angleG, angleN, angleF];
+                iframe.contentWindow.getForces(forces, angles);
                 
                 let data = iframe.contentWindow.findNetForce();
                 if (document.getElementById('checkForce').checked){
