@@ -54,6 +54,8 @@ function reset() {
     for (i = 0; i < forcesList.length; i++) {
         document.getElementById("text"+forcesList[i]).value = 0;
         document.getElementById("angle"+forcesList[i]).value = 0;
+        document.getElementById("radioboxM").value = ""
+        document.getElementById("radioboxA").value = ""
     }
 
     
