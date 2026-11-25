@@ -1,38 +1,36 @@
+
+
+// initiate variables regarding canvase size
 let myWidth=500;
 let myHeight=500;
-
 let centerX = myWidth/2;
 let centerY = myHeight/2;
+
+let scaling = 1;
+
+// initiate arrays holding input and display vector values
 const forces=[0, 0, 0, 0];
+const forceVis=[0, 0, 0, 0];
 
-function setup() {
-        
-    myWidth=windowWidth;
-    myHeight=windowWidth;
-    createCanvas(myWidth, myHeight);
-
-
-    background(255);
-    drawBorder();
-    
-}
-
-
-
+// Creates canvas, and redraws it when window is resized
 function windowResized() {
             
-        
+        // reassign window width and height variables to current window size
         myWidth=windowWidth;
         myHeight=windowWidth;
+        centerX = myWidth/2;
+        centerY = myHeight/2;
         
+        // create canvas for p5.js
         createCanvas(myWidth, myHeight);
+
+        // draws background and border of sketch
         drawBorder();
-    //console.log("a");
     }
 
 
 function draw() {
-    //resizeCanvas(myWidth, myHeight);
+    // scales size of sketch based on window size
     scale(myWidth/500);
     centerX = myWidth/2;
     centerY = myHeight/2;
@@ -40,14 +38,17 @@ function draw() {
 }
 
 function drawBorder() {
-    size = 3;
-    background = 255;
-    size2 = 10;
+
+    // set parameters for easy modification
+    let size = 3;
+    let background = 255;
+    let size2 = 10;
     
-    //line(0, 0, myWidth, myHeight);
+    // draw rectangle for backgound
     fill(255);
     rect(size, size, myWidth-size, myHeight-size);
 
+    // draw dashed perpendicular guidelines 
     stroke(100);
     for(i=50; i<=myWidth-50; i=i+10) {
         line(i, myHeight/2, i+5, myHeight/2);
@@ -55,64 +56,83 @@ function drawBorder() {
     for(i=50; i<=myHeight-50; i=i+10) {
         line(myWidth/2, i, myWidth/2, i+5);
     }
-//line(0, 0, myWidth, myHeight);
-  //line(myWidth, 0, 0, myHeight);
+
+    // draws guides representing positive directions
+    text("+", 15, 15);
+    text("+", 55, 50);
+    line(20, 55, 20, 20);
+    line(15, 50, 50, 50);
+    triangle(20, 20, 22, 25, 18, 25);
+    triangle(50, 50, 45, 48, 45, 52);
    
+    // draw circle representing center of mass of object in free body diagram
     fill(0);
     circle(myWidth/2, myWidth/2, 3);
 }
 
+/**
+ * Takes in forces and angles user inputed and puts them into an array for future use
+ *
+ * @param 
+ * calculateTotal(100); // returns 113
+ */
 function getForces(lengthA, lengthG, lengthN, lengthF, angleA, angleG, angleN, angleF) {
-    forces[0] = [constrain(lengthA, 0, myWidth/2), Math.PI * angleA/180];
-    forces[1] = [constrain(lengthG, 0, myWidth/2), Math.PI * (angleG-90)/180];
-    forces[2] = [constrain(lengthN, 0, myWidth/2), -1*Math.PI * (angleN-90)/180];
-    forces[3] = [constrain(lengthF, 0, myWidth/2), -1*Math.PI * (angleF-180)/180];
+    // force values for numerical calculations
+    forces[0] = [constrain(lengthA, 0, 1000), Math.PI * angleA/180];
+    forces[1] = [constrain(lengthG, 0, 1000), Math.PI * (angleG-90)/180];
+    forces[2] = [constrain(lengthN, 0, 1000), -1*Math.PI * (angleN-90)/180];
+    forces[3] = [constrain(lengthF, 0, 1000), -1*Math.PI * (angleF-180)/180];
+    // force values displayed on diagram
+    if (lengthA > 650 || lengthG > 650 || lengthN > 650 || lengthF > 650) {
+        scaling = 4.44444;
+    }
+    else if (lengthA > 450 || lengthG > 450 || lengthN > 450 || lengthF > 450){
+        scaling = 2.88888;
+    }
+    else if (lengthA > 225 || lengthG > 225 || lengthN > 225 || lengthF > 225){
+        scaling = 2;
+    }
+    else {
+        scaling = 1;
+    }
 stroke(0);
-    drawLines(forces);
+    drawLines(forceVis);
 
-    //let max = findMax(forces);
-
-    
-    
-    
-    //console.log("a");
-    //stroke(0);
 }
 
+
+/**
+ * Uses array of force vectors to calculate net force and its direction
+ *
+ */
 function findNetForce() {
 
+    // get x component values
     let Ax = forces[0][0]*Math.cos(forces[0][1]);
     let Gx = forces[1][0]*Math.cos(forces[1][1]);
     let Nx = forces[2][0]*Math.cos(forces[2][1]);
     let Fx = forces[3][0]*Math.cos(forces[3][1]);
-
+    // find net x force
     let totalX = Ax+Gx+Nx+Fx;
     
-    //console.log(myRound(Ax, 3), myRound(Gx, 3), myRound(Nx, 3), myRound(Fx, 3), myRound(totalX, 3));
-    
+    // get y component values
     let Ay = forces[0][0]*Math.sin(forces[0][1]);
     let Gy = forces[1][0]*Math.sin(forces[1][1]);
     let Ny = forces[2][0]*Math.sin(forces[2][1]);
     let Fy = forces[3][0]*Math.sin(forces[3][1]);
+    /// find net y force
     let totalY = Ay+Gy+Ny+Fy;
 
-    //console.log(myRound(Ay, 3), myRound(Gy, 3), myRound(Ny, 3), myRound(Fy, 3), myRound(totalY, 3));
+    // calculates magnitude of net force
     let netForce = Math.sqrt(totalX*totalX + totalY*totalY)
-    //console.log(netForce);
+    // calculates angle of net force relative to horizontal axis
     let theta = Math.atan(Math.abs(totalY)/Math.abs(totalX));
     
-    //stroke(255, 0, 0);
-    let change = 1;
-    
-    if (totalY<0) {
-        change*=-1;
-    }
-    
-    //showNetForce();
-
+    // initialize directions in the default positive direction
     let posX = "→";
     let posY = "↑";
 
+    // changes direction based on sign of net x and y force components
     if (totalX<0){
         posX = "←";
     }
@@ -125,23 +145,37 @@ function findNetForce() {
     else if (myRound(totalY, 3)==0){
         posY = "";
     }
-//console.log(theta*180/Math.PI);
+    
+    // returns array containing magnitude of net force, angle of net force, and direction in x and y 
     return [myRound(netForce, 3), myRound(theta, 3), posX, posY];
     
 }
 
-function myRound (v, d) {
-    return (Math.round(v*Math.pow(10, d)))/Math.pow(10, d);
+
+/**
+ * Rounds number to a given decimal place
+ *
+ * @param value number to round
+ * @param decimals number of decimal places
+ */
+function myRound (value, decimals) {
+    return (Math.round(value*Math.pow(10, decimals)))/Math.pow(10, decimals);
 }
 
+/**
+ * shows net force vector on sketch diagram
+ *
+ * @param netForce magnitude of net force
+ * @param theta direction of net force
+ */
 function showNetForce(netForce, theta) {
     stroke(255, 0, 0);
     fill(255, 0, 0);
-    angleLine(netForce, theta, "ɴᴇᴛ");
+    angleLine(netForce/scaling, theta, "ɴᴇᴛ");
     stroke(0, 0, 0);
 }
 
-
+// dont know if will be used????
 function findMax(forces) {
     let max = forces[0];
     for (i=1; i<forces.length; i++) {
@@ -152,43 +186,42 @@ function findMax(forces) {
     return max;
 }
 
+/**
+ * draws force vectors on sketch diagram
+ *
+ * @param forces array containing force vectors' magnitude and direction
+ */
 function drawLines(forces) {
-windowResized()
 
+    // make sure sketch size fits window size
+    windowResized()
+
+    // draws rectangle to cover previous iteration of diagram
     fill(255);
     rect(-50, -50, myWidth+50, myHeight+50)
     
-    //console.log(A);
+    // draws background
     drawBorder();
-    fill(0);
-    //line(centerX, centerY, centerX+A, centerY)
+    
+    // draws force vectors
     angleLine(forces[0][0], forces[0][1], "ᴀ");
     angleLine(forces[1][0], forces[1][1], "ᵍ");
     angleLine(forces[2][0], forces[2][1], "ɴ");
     angleLine(forces[3][0], forces[3][1], "ᶠ");
 
-    //console.log(forces[2][1]);
-    //line(centerX, centerY, centerX, centerY+lengthG)
-    //line(centerX, centerY, centerX, centerY-lengthN)
-    //line(centerX, centerY, centerX-lengthF, centerY)
-    /*
-    rect(-size2, -size2, myWidth+size2, 0)
-    rect(-size2, -size2, 0, myHeight+size2)
-    rect(myWidth, myHeight, myWidth+size2, myHeight-size2)
-    rect(-size2, myHeight, myWidth+size2, myHeight+size2)
-    */
+    // draws circle representing center of mass of object in free body diagram
     fill(0);
     circle(myWidth/2, myWidth/2, 3);
 
-    text("+", 15, 15);
-    text("+", 55, 50);
-    line(20, 55, 20, 20);
-    line(15, 50, 50, 50);
-    triangle(20, 20, 22, 25, 18, 25);
-    triangle(50, 50, 45, 48, 45, 52);
-
 }
 
+/**
+ * constrains values within a range 
+ *
+ * @param length the value to constrain
+ * @param min minimum value length can be
+ * @param max maximum value length can be
+ */
 function constrain(length, min, max) {
     if (length<min){
         length=min;
@@ -198,49 +231,40 @@ function constrain(length, min, max) {
     }
 }
 
-function angleLine(l, r, str) {
-    //let r = Math.PI * d/180;
-    let x = l* Math.cos(r);
-    let y = l* Math.sin(r);
+/**
+ * draws a line from the center of sketch from a given length and magnitude, and adds a label
+ *
+ * @param length length of line
+ * @param radian angle to draw line at in radians
+ * @param str label to go along with force vector
+ */
+function angleLine(length, radian, str) {
+    
+    // find x and y coordinates of line relative to 0, 0
+    let x = length* Math.cos(radian);
+    let y = length* Math.sin(radian);
 
+    // draw line
     line(centerX, centerY, centerX+x, centerY-y)
-    //noFill();
+    
+    // initialize tip parameters
     let tipX = centerX+x;
     let tipY = centerY-y;
     let tipSize = 10;
     let angle = 0.5;
     
-    if (l>50){
-        triangle(tipX, tipY, tipX-tipSize*(Math.cos(r-angle)), tipY+tipSize*(Math.sin(r-angle)), tipX-tipSize*(Math.cos(r+angle)), tipY+tipSize*(Math.sin(r+angle)));
-
+    // draws tip of vector
+    if (length>50){
+        triangle(tipX, tipY, tipX-tipSize*(Math.cos(radian-angle)), tipY+tipSize*(Math.sin(radian-angle)), tipX-tipSize*(Math.cos(radian+angle)), tipY+tipSize*(Math.sin(radian+angle)));
     }
     else {
-        size = l/50;
-        triangle(tipX, tipY, tipX-(tipSize*(Math.cos(r-angle)))*size, tipY+(tipSize*(Math.sin(r-angle)))*size, tipX-(tipSize*(Math.cos(r+angle)))*size, tipY+(tipSize*(Math.sin(r+angle)))*size);
-
+        size = length/50;
+        triangle(tipX, tipY, tipX-(tipSize*(Math.cos(radian-angle)))*size, tipY+(tipSize*(Math.sin(radian-angle)))*size, tipX-(tipSize*(Math.cos(radian+angle)))*size, tipY+(tipSize*(Math.sin(radian+angle)))*size);
     }
 
-    if (l!= 0) {
-text('F'+str, centerX+(l+15)* Math.cos(r)-5, centerY-+(l+15)* Math.sin(r)+5);
-    
+    // draws label of force vector if magnitude isn't 0
+    if (length!= 0) {
+        text('F'+str, centerX+(length+15)* Math.cos(radian)-5, centerY-+(length+15)* Math.sin(radian)+5);
     }
     
 }
-
-
-
-/*
-function drawLine(A, G, N, F) {
-    A=Number(A);
-    G=Number(G);
-    N=Number(N);
-    F=Number(F);
-    console.log(A);
-    drawBorder();
-    line(centerX, centerY, centerX+A, centerY)
-    line(centerX, centerY, centerX, centerY+G)
-    line(centerX, centerY, centerX, centerY-N)
-    line(centerX, centerY, centerX-F, centerY)
-    
-}
-    */
