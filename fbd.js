@@ -9,8 +9,8 @@ let scaling = 1;
 let scaleAdjust = 1.3;
 
 // initiate arrays holding input and display vector values
-const forces=[0, 0, 0, 0];
-const forceVis=[0, 0, 0, 0];
+const forces=[0, 0, 0, 0, 0, 0];
+const forceVis=[0, 0, 0, 0, 0, 0];
 
 /**
  * Creates and redraws canvas when window is resized
@@ -158,18 +158,21 @@ function getForces(force, angle) {
     forces[1] = [constrain(force[1], 0, 1000), Math.PI * (angle[1]-90)/180];
     forces[2] = [constrain(force[2], 0, 1000), -1*Math.PI * (angle[2]-90)/180];
     forces[3] = [constrain(force[3], 0, 1000), -1*Math.PI * (angle[3]-180)/180];
+    forces[4] = [constrain(force[4], 0, 1000), Math.PI * angle[4]/180];
+    forces[5] = [constrain(force[5], 0, 1000), Math.PI * angle[5]/180];
+    
 
     // force values displayed on diagram
-    if (force[0] > 650 || force[1] > 650 || force[2] > 650 || force[3] > 650) {
+    if (force[0] > 650 || force[1] > 650 || force[2] > 650 || force[3] > 650 || force[4] > 650 || force[5] > 650 || (findNetForce() > 650)) {
         scaling = 4.44444;
     }
-    else if (force[0] > 450 || force[1] > 450 || force[2] > 450 || force[3] > 450){
+    else if (force[0] > 450 || force[1] > 450 || force[2] > 450 || force[3] > 450 || force[4] > 450 || force[5] > 450 || (findNetForce() > 450)){
         scaling = 2.88888;
     }
-    else if (force[0] > 250 || force[1] > 250 || force[2] > 250 || force[3] > 250){
+    else if (force[0] > 250 || force[1] > 250 || force[2] > 250 || force[3] > 250 || force[4] > 250 || force[5] > 250 || (findNetForce() > 250)){
         scaling = 2;
     }
-    else if (force[0] > 50 || force[1] > 50 || force[2] > 50 || force[3] > 50){
+    else if (force[0] > 50 || force[1] > 50 || force[2] > 50 || force[3] > 50 || force[4] > 50 || force[5] > 50 || (findNetForce() > 50)){
         scaling = 1;
     }
     else {
@@ -200,16 +203,20 @@ function findNetForce() {
     let Gx = forces[1][0]*Math.cos(forces[1][1]);
     let Nx = forces[2][0]*Math.cos(forces[2][1]);
     let Fx = forces[3][0]*Math.cos(forces[3][1]);
+    let Tx = forces[4][0]*Math.cos(forces[4][1]);
+    let Sx = forces[5][0]*Math.cos(forces[5][1]);
     // find net x force
-    let totalX = Ax+Gx+Nx+Fx;
+    let totalX = Ax+Gx+Nx+Fx+Tx+Sx;
     
     // get y component values
     let Ay = forces[0][0]*Math.sin(forces[0][1]);
     let Gy = forces[1][0]*Math.sin(forces[1][1]);
     let Ny = forces[2][0]*Math.sin(forces[2][1]);
     let Fy = forces[3][0]*Math.sin(forces[3][1]);
+    let Ty = forces[4][0]*Math.sin(forces[4][1]);
+    let Sy = forces[5][0]*Math.sin(forces[5][1]);
     /// find net y force
-    let totalY = Ay+Gy+Ny+Fy;
+    let totalY = Ay+Gy+Ny+Fy+Ty+Sy;
 
     // calculates magnitude of net force
     let netForce = Math.sqrt(totalX*totalX + totalY*totalY)
@@ -285,6 +292,8 @@ function drawLines(forces) {
     angleLine(forces[1][0], forces[1][1], "ᵍ");
     angleLine(forces[2][0], forces[2][1], "ɴ");
     angleLine(forces[3][0], forces[3][1], "ᶠ");
+    angleLine(forces[4][0], forces[4][1], "ᴛ");
+    angleLine(forces[5][0], forces[5][1], "ₛₚ");
 
     // draws circle representing center of mass of object in free body diagram
     fill(0);

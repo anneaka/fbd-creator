@@ -2,7 +2,7 @@
 const maxValue = 1000;
 const minAngle = -360;
 const maxAngle = 360;
-const forcesList = ["A", "G", "N", "F"];
+const forcesList = ["A", "G", "N", "F", "T", "S"];
 
 // set all values to 0
 for(i=0; i<forcesList.length; i++){
