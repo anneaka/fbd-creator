@@ -194,7 +194,8 @@
                         document.getElementById("radioboxA").value = ""
                     }
                     else {
-                        document.getElementById("radioboxA").value = data[0] / document.getElementById("radioboxM").value;
+                        const decimalA = data[0] / document.getElementById("radioboxM").value;
+                        document.getElementById("radioboxA").value = iframe.contentWindow.myRound(decimalA, 3);
                     }
                 }
                 else if (document.getElementById("radioA").checked == true) {
@@ -203,7 +204,8 @@
                         document.getElementById("radioboxM").value = ""
                     }
                     else {
-                        document.getElementById("radioboxM").value = data[0] / document.getElementById("radioboxA").value;
+                        const decimalM = data[0] / document.getElementById("radioboxA").value;
+                        document.getElementById("radioboxM").value = iframe.contentWindow.myRound(decimalM, 3);
                     }
                 }
                 document.getElementById("accelAngle").textContent = "[" + data[2] + data[1] + data[3]+"]";
