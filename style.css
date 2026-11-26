@@ -45,7 +45,7 @@ p {
 .header ul {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 50px;
     text-align: right;
     justify-content: right;
     margin-right: 50px;
@@ -75,13 +75,13 @@ p {
 
     margin-top: 30px;
     
-    max-width: 60%;
+    max-width: 80%;
     display: flex;
     justify-content: center;
     align-items: center; 
     flex-wrap: wrap;
     flex-basis: 1, 1, 500px;
-    gap: 100px;
+    gap: 50px;
     
     
 }
@@ -98,16 +98,22 @@ p {
 }
 
 .text-container {
-    padding: 5px;
+    padding: 10px;
     text-align: left;
     margin: auto;
+    margin-top: 30px;
     background-color: white;
     
+}
+
+.flex .text-container{
+    margin-top: 5px;
 }
 
 .inputs {
     
     min-width: 300px;
+    margin: 0;
     
 }
 
@@ -154,6 +160,7 @@ p {
     float: right; 
     align-content: center;
     vertical-align: middle;
+    margin: 0;
     
     aspect-ratio: 1 / 1;
     flex: 1;
