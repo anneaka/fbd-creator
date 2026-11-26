@@ -88,55 +88,55 @@ function drawBackground() {
     // draws scale 
     fill(0);
     stroke(90);
-    line(centerX, myHeight-22, myWidth-25, myHeight-22);
+    line(centerX, myHeight-22, myWidth-77, myHeight-22);
     noStroke();
     textSize(10);
     text('0N', myWidth/2-5, myHeight-5);
     if (scaling == 4.44444*scaleAdjust) {
-        text('1000N', myWidth-30, myHeight-5);
+        text('1000N', myWidth-80, myHeight-5);
 
         stroke(0);
-        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
-        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5)
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
     else if (scaling == 2.88888*scaleAdjust) {
-        text('650N', myWidth-30, myHeight-5);
+        text('650N', myWidth-80, myHeight-5);
 
         stroke(0);
-        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
         for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/6.5)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
     else if (scaling == 2*scaleAdjust) {
-        text('450N', myWidth-30, myHeight-5);
+        text('450N', myWidth-80, myHeight-5);
     
         stroke(0);
-        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
-        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/4.5)
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/4.5)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
     else if (scaling == scaleAdjust) {
-        text('250N', myWidth-30, myHeight-5);
+        text('250N', myWidth-80, myHeight-5);
     
         stroke(0);
-        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5.1)
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5.1)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
     else {
-        text('50N', myWidth-30, myHeight-5);
+        text('50N', myWidth-80, myHeight-5);
         
         stroke(0);
-        line(myWidth-25, myHeight-26, myWidth-25, myHeight-18);
-        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/5)
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
