@@ -166,7 +166,7 @@ function getForces(force, angle) {
     else if (force[0] > 450 || force[1] > 450 || force[2] > 450 || force[3] > 450){
         scaling = 2.88888;
     }
-    else if (force[0] > 225 || force[1] > 225 || force[2] > 225 || force[3] > 225){
+    else if (force[0] > 250 || force[1] > 250 || force[2] > 250 || force[3] > 250){
         scaling = 2;
     }
     else if (force[0] > 50 || force[1] > 50 || force[2] > 50 || force[3] > 50){
