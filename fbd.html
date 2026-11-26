@@ -187,9 +187,11 @@
                //console.log(data[1]);
                 document.getElementById("netForce").textContent = data[0] + " N [" + data[2] + data[1] + data[3]+"]";
 
+                // mass and acceleration
                 if (document.getElementById("radioM").checked == true) {
                     if (document.getElementById("radioboxM").value <= 0) {
                         document.getElementById("radioboxA").placeholder = "-";
+                        document.getElementById("radioboxA").value = ""
                     }
                     else {
                         document.getElementById("radioboxA").value = data[0] / document.getElementById("radioboxM").value;
@@ -198,6 +200,7 @@
                 else if (document.getElementById("radioA").checked == true) {
                     if (document.getElementById("radioboxA").value <= 0) {
                         document.getElementById("radioboxM").placeholder = "-";
+                        document.getElementById("radioboxM").value = ""
                     }
                     else {
                         document.getElementById("radioboxM").value = data[0] / document.getElementById("radioboxA").value;
