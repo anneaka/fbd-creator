@@ -7,6 +7,7 @@ let centerY = myHeight/2;
 // initiate scaling variables
 let scaling = 1;
 let scaleAdjust = 1.3;
+let useNet = 0;
 
 // initiate arrays holding input and display vector values
 const forces=[0, 0, 0, 0, 0, 0];
@@ -107,7 +108,7 @@ function drawBackground() {
 
         stroke(0);
         line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
-        for (i=myWidth/2; i<myWidth-25; i+=((myWidth/2)-25)/6.5)
+        for (i=myWidth/2; i<myWidth-80; i+=((myWidth/2)-80)/6.5)
         {
             line(i, myHeight-26, i, myHeight-18);
         }
@@ -160,19 +161,18 @@ function getForces(force, angle) {
     forces[3] = [constrain(force[3], 0, 1000), -1*Math.PI * (angle[3]-180)/180];
     forces[4] = [constrain(force[4], 0, 1000), Math.PI * angle[4]/180];
     forces[5] = [constrain(force[5], 0, 1000), Math.PI * angle[5]/180];
-    
 
     // force values displayed on diagram
-    if (force[0] > 650 || force[1] > 650 || force[2] > 650 || force[3] > 650 || force[4] > 650 || force[5] > 650 || (findNetForce() > 650)) {
+    if (Math.max(Math.max(...force), useNet) > 650) {
         scaling = 4.44444;
     }
-    else if (force[0] > 450 || force[1] > 450 || force[2] > 450 || force[3] > 450 || force[4] > 450 || force[5] > 450 || (findNetForce() > 450)){
+    else if (Math.max(Math.max(...force), useNet) > 450){
         scaling = 2.88888;
     }
-    else if (force[0] > 250 || force[1] > 250 || force[2] > 250 || force[3] > 250 || force[4] > 250 || force[5] > 250 || (findNetForce() > 250)){
+    else if (Math.max(Math.max(...force), useNet) > 250){
         scaling = 2;
     }
-    else if (force[0] > 50 || force[1] > 50 || force[2] > 50 || force[3] > 50 || force[4] > 50 || force[5] > 50 || (findNetForce() > 50)){
+    else if (Math.max(Math.max(...force), useNet) > 50){
         scaling = 1;
     }
     else {
@@ -353,4 +353,8 @@ function angleLine(length, radian, str) {
         text('F'+str, centerX+(length+15)* Math.cos(radian)-5, centerY-+(length+15)* Math.sin(radian)+5);
     }
     
+}
+
+function toUseNet(value) {
+    useNet = value;
 }

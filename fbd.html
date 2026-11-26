@@ -194,6 +194,7 @@
                 
                 let data = iframe.contentWindow.findNetForce();
                 if (document.getElementById('checkForce').checked){
+                    iframe.contentWindow.toUseNet(data[0]);
                     if (data[2]=="←" && data[3]=="↓"){
                         iframe.contentWindow.showNetForce(data[0], Math.PI + data[1]);
                     }
@@ -207,6 +208,9 @@
                         iframe.contentWindow.showNetForce(data[0], data[1]);
                     }
                     
+                }
+                else {
+                    iframe.contentWindow.toUseNet(0);
                 }
 
                 
