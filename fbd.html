@@ -99,33 +99,6 @@
                 <input type ="number" id="radioboxA" class="number" disabled="disabled" placeholder="">m/s²</input>
                 <text id="accelAngle">[]</text>
             </div>
-
-            <script src="force-input.js"></script>
-            <!--<script src="fbd.js"></script>-->
-            <script>
-
-                setInterval(function () {
-                    valueCheck("A");
-                    valueCheck("G");
-                    valueCheck("N");
-                    valueCheck("F");
-                    valueCheck("T");
-                    valueCheck("S");
-                    angleCheck("A");
-                    angleCheck("G");
-                    angleCheck("N");
-                    angleCheck("F");
-                    angleCheck("T");
-                    angleCheck("S");
-                    //calculateMassAccel();
-                    run();
-                    }, 10);
-
-                    
-            </script>
-
-            <!--<button onclick="document.getElementById('iframe').contentWindow.drawLine(document.getElementById('textA').value, document.getElementById('textG').value)">Submit</button> -->
-        
         <br>
         <br>
             <button onclick="reset()">Reset</button>
@@ -137,129 +110,153 @@
             <button >i</button>
         </a>
     </div>
-    
+
+    <script src="force-input.js"></script>
+    <script>
+        // makes sure inputs are valid
+        setInterval(function () {
+            valueCheck("A");
+            valueCheck("G");
+            valueCheck("N");
+            valueCheck("F");
+            valueCheck("T");
+            valueCheck("S");
+            angleCheck("A");
+            angleCheck("G");
+            angleCheck("N");
+            angleCheck("F");
+            angleCheck("T");
+            angleCheck("S");
+            run();
+        }, 10);
+    </script>
     <script>
 
+        // resize sketch
         iframe.contentWindow.windowResized();
-            function showTextbox(id){
-                const checkbox = document.getElementById("check" + id);
-                const textbox = document.getElementById("text" + id);
-                const label = document.getElementById("label" + id);
-                const angle = document.getElementById("angle" + id);
-                const label2 = document.getElementById("label2" + id);
-                if (checkbox.checked){
-                    textbox.style.display = "flex";
-                    label.style.display = "flex";
-                    angle.style.display = "flex";
-                    label2.style.display = "flex";
-                }
-                else {
-                    textbox.style.display = "none";
-                    label.style.display = "none";
-                    angle.style.display = "none";
-                    label2.style.display = "none";
-                    angle.value = 0;
-                    textbox.value = 0;
-                    //textbox.value = "";
 
-                }
-                
+        /**
+         * shows/hides textbox depending on checkbox status
+         * 
+         * @param id symbol for each force to determine which labels/textboxes to hide
+         */
+        function showTextbox(id){
+            const checkbox = document.getElementById("check" + id);
+            const textbox = document.getElementById("text" + id);
+            const label = document.getElementById("label" + id);
+            const angle = document.getElementById("angle" + id);
+            const label2 = document.getElementById("label2" + id);
+            if (checkbox.checked){
+                textbox.style.display = "flex";
+                label.style.display = "flex";
+                angle.style.display = "flex";
+                label2.style.display = "flex";
             }
-
-
-            document.getElementById('textA').addEventListener("input", run );
-            document.getElementById('textG').addEventListener('input', run );
-            document.getElementById('textN').addEventListener("input", run );
-            document.getElementById('textF').addEventListener('input', run );
-            document.getElementById('textT').addEventListener('input', run );
-            document.getElementById('textS').addEventListener('input', run );
-            function run(){
-                let lengthA = document.getElementById('textA').value;
-                let lengthG = document.getElementById('textG').value;
-                let lengthN = document.getElementById('textN').value;
-                let lengthF = document.getElementById('textF').value;
-                let lengthT = document.getElementById('textT').value;
-                let lengthS = document.getElementById('textS').value;
-
-                let angleA = document.getElementById('angleA').value;
-                let angleG = document.getElementById('angleG').value;
-                let angleN = document.getElementById('angleN').value;
-                let angleF = document.getElementById('angleF').value;
-                let angleT = document.getElementById('angleT').value;
-                let angleS = document.getElementById('angleS').value;
-
-                const forces = [lengthA, lengthG, lengthN, lengthF, lengthT, lengthS];
-                const angles = [angleA, angleG, angleN, angleF, angleT, angleS];
-                iframe.contentWindow.getForces(forces, angles);
-                
-                let data = iframe.contentWindow.findNetForce();
-                if (document.getElementById('checkForce').checked){
-                    iframe.contentWindow.toUseNet(data[0]);
-                    if (data[2]=="←" && data[3]=="↓"){
-                        iframe.contentWindow.showNetForce(data[0], Math.PI + data[1]);
-                    }
-                    else if (data[2]=="←"){
-                        iframe.contentWindow.showNetForce(data[0], Math.PI - data[1]);
-                    }
-                    else if (data[3]=="↓"){
-                        iframe.contentWindow.showNetForce(data[0], -data[1]);
-                    }
-                    else {
-                        iframe.contentWindow.showNetForce(data[0], data[1]);
-                    }
-                    
-                }
-                else {
-                    iframe.contentWindow.toUseNet(0);
-                }
-
-                
-               data[1]=iframe.contentWindow.myRound(data[1]*180/Math.PI, 1);
-               if (Number.isNaN(data[1])||data[1]==0){
-                    data[1]="";
-                }
-                else {
-                    data[1]+="°";
-                }
-               //console.log(data[1]);
-                document.getElementById("netForce").textContent = data[0] + " N [" + data[2] + data[1] + data[3]+"]";
-
-                // mass and acceleration
-                if (document.getElementById("radioM").checked == true) {
-                    if (document.getElementById("radioboxM").value <= 0) {
-                        document.getElementById("radioboxA").placeholder = "-";
-                        document.getElementById("radioboxA").value = ""
-                    }
-                    else {
-                        const decimalA = data[0] / document.getElementById("radioboxM").value;
-                        document.getElementById("radioboxA").value = iframe.contentWindow.myRound(decimalA, 3);
-                    }
-                }
-                else if (document.getElementById("radioA").checked == true) {
-                    if (document.getElementById("radioboxA").value <= 0) {
-                        document.getElementById("radioboxM").placeholder = "-";
-                        document.getElementById("radioboxM").value = ""
-                    }
-                    else {
-                        const decimalM = data[0] / document.getElementById("radioboxA").value;
-                        document.getElementById("radioboxM").value = iframe.contentWindow.myRound(decimalM, 3);
-                    }
-                }
-                document.getElementById("accelAngle").textContent = "[" + data[2] + data[1] + data[3]+"]";
-                
+            else {
+                textbox.style.display = "none";
+                label.style.display = "none";
+                angle.style.display = "none";
+                label2.style.display = "none";
+                angle.value = 0;
+                textbox.value = 0;
             }
+        }
 
-            window.addEventListener("resize", resize);
-            function resize() {
-                iframe.contentWindow.windowResized();
-                
-            }
+        // check if inputs are changed
+        document.getElementById('textA').addEventListener("input", run );
+        document.getElementById('textG').addEventListener('input', run );
+        document.getElementById('textN').addEventListener("input", run );
+        document.getElementById('textF').addEventListener('input', run );
+        document.getElementById('textT').addEventListener('input', run );
+        document.getElementById('textS').addEventListener('input', run );
+        
+        /**
+         * Updates sketch
+         */
+        function run(){
+            // get magnitudes
+            let lengthA = document.getElementById('textA').value;
+            let lengthG = document.getElementById('textG').value;
+            let lengthN = document.getElementById('textN').value;
+            let lengthF = document.getElementById('textF').value;
+            let lengthT = document.getElementById('textT').value;
+            let lengthS = document.getElementById('textS').value;
+            // get directions 
+            let angleA = document.getElementById('angleA').value;
+            let angleG = document.getElementById('angleG').value;
+            let angleN = document.getElementById('angleN').value;
+            let angleF = document.getElementById('angleF').value;
+            let angleT = document.getElementById('angleT').value;
+            let angleS = document.getElementById('angleS').value;
 
+            // draw sketch
+            const forces = [lengthA, lengthG, lengthN, lengthF, lengthT, lengthS];
+            const angles = [angleA, angleG, angleN, angleF, angleT, angleS];
+            iframe.contentWindow.getForces(forces, angles);
             
+            // draw net force
+            let data = iframe.contentWindow.findNetForce();
+            if (document.getElementById('checkForce').checked){
+                iframe.contentWindow.toUseNet(data[0]);
+                if (data[2]=="←" && data[3]=="↓"){
+                    iframe.contentWindow.showNetForce(data[0], Math.PI + data[1]);
+                }
+                else if (data[2]=="←"){
+                    iframe.contentWindow.showNetForce(data[0], Math.PI - data[1]);
+                }
+                else if (data[3]=="↓"){
+                    iframe.contentWindow.showNetForce(data[0], -data[1]);
+                }
+                else {
+                    iframe.contentWindow.showNetForce(data[0], data[1]);
+                }
+            }
+            else {
+                iframe.contentWindow.toUseNet(0);
+            }
 
+            // output net force
+            data[1]=iframe.contentWindow.myRound(data[1]*180/Math.PI, 1);
+            if (Number.isNaN(data[1])||data[1]==0){
+                data[1]="";
+            }
+            else {
+                data[1]+="°";
+            }
+            document.getElementById("netForce").textContent = data[0] + " N [" + data[2] + data[1] + data[3]+"]";
 
+            // find mass and acceleration
+            if (document.getElementById("radioM").checked == true) {
+                if (document.getElementById("radioboxM").value <= 0) {
+                    document.getElementById("radioboxA").placeholder = "-";
+                    document.getElementById("radioboxA").value = ""
+                }
+                else {
+                    const decimalA = data[0] / document.getElementById("radioboxM").value;
+                    document.getElementById("radioboxA").value = iframe.contentWindow.myRound(decimalA, 3);
+                }
+            }
+            else if (document.getElementById("radioA").checked == true) {
+                if (document.getElementById("radioboxA").value <= 0) {
+                    document.getElementById("radioboxM").placeholder = "-";
+                    document.getElementById("radioboxM").value = ""
+                }
+                else {
+                    const decimalM = data[0] / document.getElementById("radioboxA").value;
+                    document.getElementById("radioboxM").value = iframe.contentWindow.myRound(decimalM, 3);
+                }
+            }
+            document.getElementById("accelAngle").textContent = "[" + data[2] + data[1] + data[3]+"]";
+        }
 
-            
+        window.addEventListener("resize", resize);
+        /**
+         * Resizes sketch
+         */
+        function resize() {
+            iframe.contentWindow.windowResized();     
+        }
+
     </script>
 
   </body>

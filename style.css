@@ -225,8 +225,17 @@ button a {
 }
 
 button:hover {
-    font-size: 15px;
     
+    background-color: var(--blue2);
+    
+}
+
+input[type="checkbox"] {
+    accent-color: var(--blue1);
+}
+input[type="checkbox"]:hover {
+    accent-color: var(--blue2);
+    color: white;
 }
 
 .footer {
@@ -243,9 +252,7 @@ button:hover {
     width: 40px;
     height: 40px;
     border-radius: 30px;
-    opacity: 80%;
 }
 .footer button:hover {
-    opacity: 100%;
-    transition: opacity 0.5s;
+    background-color: var(--blue2);
 }
