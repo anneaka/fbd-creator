@@ -93,7 +93,28 @@ function drawBackground() {
     noStroke();
     textSize(10);
     text('0N', myWidth/2-5, myHeight-5);
-    if (scaling == 4.44444*scaleAdjust) {
+    
+    if (scaling == 26.8*scaleAdjust) {
+        text('6000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/6)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
+    else if (scaling == 13.3*scaleAdjust) {
+        text('3000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/6)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
+    else if (scaling == 4.44444*scaleAdjust) {
         text('1000N', myWidth-80, myHeight-5);
 
         stroke(0);
@@ -132,46 +153,6 @@ function drawBackground() {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
-    else if (scaling == 8*scaleAdjust) {
-        text('2000N', myWidth-80, myHeight-5);
-    
-        stroke(0);
-        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
-        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
-        {
-            line(i, myHeight-26, i, myHeight-18);
-        }
-    }
-    else if (scaling == 12*scaleAdjust) {
-        text('3000N', myWidth-80, myHeight-5);
-    
-        stroke(0);
-        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
-        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
-        {
-            line(i, myHeight-26, i, myHeight-18);
-        }
-    }
-    else if (scaling == 20*scaleAdjust) {
-        text('5000N', myWidth-80, myHeight-5);
-    
-        stroke(0);
-        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
-        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
-        {
-            line(i, myHeight-26, i, myHeight-18);
-        }
-    }
-    else if (scaling == 24*scaleAdjust) {
-        text('6000N', myWidth-80, myHeight-5);
-    
-        stroke(0);
-        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
-        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
-        {
-            line(i, myHeight-26, i, myHeight-18);
-        }
-    }
     else {
         text('50N', myWidth-80, myHeight-5);
         
@@ -201,16 +182,13 @@ function getForces(force, angle) {
     forces[3] = [constrain(force[3], 0, 1000), -1*Math.PI * (angle[3]-180)/180];
     forces[4] = [constrain(force[4], 0, 1000), Math.PI * angle[4]/180];
     forces[5] = [constrain(force[5], 0, 1000), Math.PI * angle[5]/180];
-
+    
     // force values displayed on diagram
-    if (Math.max(Math.max(...force), useNet) > 5000) {
-        scaling = 24;
-    }
-    else if (Math.max(Math.max(...force), useNet) > 3000) {
-        scaling = 20;
+    if (Math.max(Math.max(...force), useNet) > 3000) {
+        scaling = 26.8;
     }
     else if (Math.max(Math.max(...force), useNet) > 1000) {
-        scaling = 12;
+        scaling = 13.3;
     }
     else if (Math.max(Math.max(...force), useNet) > 650) {
         scaling = 4.44444;
