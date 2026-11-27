@@ -132,6 +132,46 @@ function drawBackground() {
             line(i, myHeight-26, i, myHeight-18);
         }
     }
+    else if (scaling == 8*scaleAdjust) {
+        text('2000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
+    else if (scaling == 12*scaleAdjust) {
+        text('3000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
+    else if (scaling == 20*scaleAdjust) {
+        text('5000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
+    else if (scaling == 24*scaleAdjust) {
+        text('6000N', myWidth-80, myHeight-5);
+    
+        stroke(0);
+        line(myWidth-77, myHeight-26, myWidth-77, myHeight-18);
+        for (i=myWidth/2; i<myWidth-77; i+=((myWidth/2)-77)/5)
+        {
+            line(i, myHeight-26, i, myHeight-18);
+        }
+    }
     else {
         text('50N', myWidth-80, myHeight-5);
         
@@ -163,7 +203,16 @@ function getForces(force, angle) {
     forces[5] = [constrain(force[5], 0, 1000), Math.PI * angle[5]/180];
 
     // force values displayed on diagram
-    if (Math.max(Math.max(...force), useNet) > 650) {
+    if (Math.max(Math.max(...force), useNet) > 5000) {
+        scaling = 24;
+    }
+    else if (Math.max(Math.max(...force), useNet) > 3000) {
+        scaling = 20;
+    }
+    else if (Math.max(Math.max(...force), useNet) > 1000) {
+        scaling = 12;
+    }
+    else if (Math.max(Math.max(...force), useNet) > 650) {
         scaling = 4.44444;
     }
     else if (Math.max(Math.max(...force), useNet) > 450){
